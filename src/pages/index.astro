@@ -1,579 +1,82 @@
 ---
-// Novel data - in production this would come from a CMS or API
-const novels = [
-  {
-    id: "1",
-    title: "凡人修仙传",
-    author: "忘语",
-    cover: "https://picsum.photos/seed/novel1/200/280",
-    category: "仙侠",
-    status: "连载",
-    description: "一个普通的凡人少年，偶然踏入修仙之路，历经磨难，终成大道。",
-    latestChapter: "第2345章 渡劫",
-    updateTime: "2小时前",
-    tags: ["凡人流", "修仙", "热血"]
-  },
-  {
-    id: "2",
-    title: "剑来",
-    author: "烽火戏诸侯",
-    cover: "https://picsum.photos/seed/novel2/200/280",
-    category: "仙侠",
-    status: "连载",
-    description: "骊珠洞天少年陈平安，背剑远游，入局破局，终成一代宗师。",
-    latestChapter: "第1200章 新剑",
-    updateTime: "5小时前",
-    tags: ["剑道", "热血", "成长"]
-  },
-  {
-    id: "3",
-    title: "大奉打更人",
-    author: "卖报小郎君",
-    cover: "https://picsum.photos/seed/novel3/200/280",
-    category: "仙侠",
-    status: "完本",
-    description: "警校生许七安穿越异世，成为大奉打更人，守护苍生。",
-    latestChapter: "第1204章 大结局",
-    updateTime: "已完本",
-    tags: ["穿越", "悬疑", "爽文"]
-  },
-  {
-    id: "4",
-    title: "道诡异仙",
-    author: "狐尾的笔",
-    cover: "https://picsum.photos/seed/novel4/200/280",
-    category: "仙侠",
-    status: "连载",
-    description: "诡异修仙，精神分裂，克苏鲁风格，挑战认知极限。",
-    latestChapter: "第800章 分裂",
-    updateTime: "1小时前",
-    tags: ["克苏鲁", "诡异", "修仙"]
-  },
-  {
-    id: "5",
-    title: "遮天",
-    author: "辰东",
-    cover: "https://picsum.photos/seed/novel5/200/280",
-    category: "仙侠",
-    status: "完本",
-    description: "九龙拉棺，荒古时代，叶凡崛起，对抗诸圣地。",
-    latestChapter: "第1829章 独断万古",
-    updateTime: "已完本",
-    tags: ["热血", "战斗", "成帝"]
-  },
-  {
-    id: "6",
-    title: "诛仙",
-    author: "萧鼎",
-    cover: "https://picsum.photos/seed/novel6/200/280",
-    category: "仙侠",
-    status: "完本",
-    description: "草庙村少年张小凡，卷入正魔之争，执碧瑶之手，诛天地不仁。",
-    latestChapter: "第227章 尾声",
-    updateTime: "已完本",
-    tags: ["经典", "爱情", "江湖"]
-  },
-  {
-    id: "7",
-    title: "仙逆",
-    author: "耳根",
-    cover: "https://picsum.photos/seed/novel7/200/280",
-    category: "仙侠",
-    status: "完本",
-    description: "顺为凡，逆则仙。王林逆天改命，踏上孤独的修仙路。",
-    latestChapter: "第1900章 结局",
-    updateTime: "已完本",
-    tags: ["逆袭", "杀伐", "修仙"]
-  },
-  {
-    id: "8",
-    title: "我欲封天",
-    author: "耳根",
-    cover: "https://picsum.photos/seed/novel8/200/280",
-    category: "仙侠",
-    status: "完本",
-    description: "我若要有，天不可无。我若要无，天不许有。",
-    latestChapter: "第1592章 封天",
-    updateTime: "已完本",
-    tags: ["爽文", "逆天", "封帝"]
-  }
-];
+// Auto-generated tracker page - DO NOT EDIT MANUALLY
+// This file is rebuilt on every GitHub Actions run
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-const rankings = [
-  { rank: 1, title: "道诡异仙", author: "狐尾的笔", hot: "98.5" },
-  { rank: 2, title: "剑来", author: "烽火戏诸侯", hot: "96.2" },
-  { rank: 3, title: "凡人修仙传", author: "忘语", hot: "94.8" },
-  { rank: 4, title: "大奉打更人", author: "卖报小郎君", hot: "93.1" },
-  { rank: 5, title: "深空彼岸", author: "辰东", hot: "91.5" }
-];
+const trackerHtmlPath = join(process.cwd(), 'data', 'site', 'index.html');
+let trackerHtml = '';
 
-const categories = ["全部", "仙侠", "玄幻", "都市", "历史", "科幻", "游戏"];
+try {
+  const raw = readFileSync(trackerHtmlPath, 'utf-8');
+  // Extract body content
+  const bodyMatch = raw.match(/<body[^>]*>([\s\S]*?)<\/body>/);
+  const bodyContent = bodyMatch ? bodyMatch[1] : raw;
+  // Extract styles
+  const styleMatch = raw.match(/<style[^>]*>([\s\S]*?)<\/style>/);
+  const styleContent = styleMatch ? styleMatch[1] : '';
+  trackerHtml = `<style is:global>${styleContent}</style>${bodyContent}`;
+} catch (e) {
+  // Fallback if no data yet
+  trackerHtml = '<div style="padding:40px;color:#fff;text-align:center;font-family:sans-serif;"><h2>数据加载中...</h2><p>首次构建可能需要几分钟，请稍后刷新。</p></div>';
+}
 ---
+<div set:html={trackerHtml} />
 
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="起点中文网 - 仙侠玄幻小说阅读平台" />
-  <title>起点中文网 - 仙侠玄幻小说</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="/" class="logo">起点中文网</a>
-      <nav class="main-nav">
-        <a href="/" class="active">首页</a>
-        <a href="/rankings">排行榜</a>
-        <a href="/categories">分类</a>
-        <a href="/complete">完本</a>
-      </nav>
-      <div class="header-actions">
-        <input type="text" placeholder="搜索书名/作者" class="search-input" />
-        <button class="btn-primary">登录</button>
-      </div>
-    </div>
-  </header>
+<script>
+  // Particle + parallax effects
+  let mx = 0, my = 0;
+  document.documentElement.style.setProperty('--mx', '0px');
+  document.documentElement.style.setProperty('--my', '0px');
+  window.addEventListener('mousemove', e => {
+    const rx = (e.clientX / window.innerWidth - 0.5) * 12;
+    const ry = (e.clientY / window.innerHeight - 0.5) * 8;
+    document.documentElement.style.setProperty('--mx', rx + 'px');
+    document.documentElement.style.setProperty('--my', ry + 'px');
+    const bg = document.querySelector('.scene-bg');
+    if (bg) bg.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) scale(1.02)';
+  });
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <h1>畅读仙侠精品</h1>
-        <p>收录全网热门仙侠、玄幻、都市小说</p>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num">5000+</span>
-          <span class="stat-label">热门小说</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">1000万+</span>
-          <span class="stat-label">读者正在读</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">每日更新</span>
-          <span class="stat-label">万字级别</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Categories -->
-  <section class="categories">
-    <div class="section-inner">
-      {categories.map((cat, i) => (
-        <a href={`/category/${cat === '全部' ? 'all' : cat}`} class={`cat-tag ${i === 0 ? 'active' : ''}`}>{cat}</a>
-      ))}
-    </div>
-  </section>
-
-  <!-- Main Content Grid -->
-  <main class="main-content">
-    <div class="content-grid">
-      <!-- Left: Novel Grid -->
-      <div class="novel-grid-section">
-        <div class="section-header">
-          <h2>编辑推荐</h2>
-          <a href="/all" class="more-link">查看全部 →</a>
-        </div>
-        <div class="novel-grid">
-          {novels.map((novel) => (
-            <a href={`/novel/${novel.id}`} class="novel-card">
-              <div class="novel-cover">
-                <img src={novel.cover} alt={novel.title} loading="lazy" />
-                <span class={`status-tag ${novel.status === '完本' ? 'finished' : 'serial'}`}>{novel.status}</span>
-              </div>
-              <div class="novel-info">
-                <h3 class="novel-title">{novel.title}</h3>
-                <p class="novel-author">{novel.author}</p>
-                <p class="novel-desc">{novel.description}</p>
-                <div class="novel-tags">
-                  {novel.tags.map(tag => <span class="tag">{tag}</span>)}
-                </div>
-                <p class="novel-update">最新：{novel.latestChapter} · {novel.updateTime}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <!-- Right: Sidebar -->
-      <aside class="sidebar">
-        <!-- Rankings -->
-        <div class="sidebar-block">
-          <h3 class="sidebar-title">🔥 热门排行</h3>
-          <ol class="ranking-list">
-            {rankings.map((item) => (
-              <li class="ranking-item">
-                <span class={`rank-num ${item.rank <= 3 ? 'top' : ''}`}>{item.rank}</span>
-                <div class="rank-info">
-                  <a href={`/novel/${item.rank}`} class="rank-title">{item.title}</a>
-                  <span class="rank-author">{item.author}</span>
-                  <span class="rank-hot">{item.hot}%</span>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="sidebar-block">
-          <h3 class="sidebar-title">📚 猜你喜欢</h3>
-          <div class="quick-links">
-            <a href="/novel/1" class="quick-item">
-              <span class="q-num">1</span>
-              <span>凡人修仙传</span>
-            </a>
-            <a href="/novel/2" class="quick-item">
-              <span class="q-num">2</span>
-              <span>剑来</span>
-            </a>
-            <a href="/novel/5" class="quick-item">
-              <span class="q-num">3</span>
-              <span>遮天</span>
-            </a>
-            <a href="/novel/3" class="quick-item">
-              <span class="q-num">4</span>
-              <span>大奉打更人</span>
-            </a>
-            <a href="/novel/7" class="quick-item">
-              <span class="q-num">5</span>
-              <span>仙逆</span>
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>© 2024 起点中文网 | 仅供学习交流</p>
-      <p>本平台不存储任何小说内容，所有资源均来自公开网络</p>
-    </div>
-  </footer>
-</body>
-</html>
-
-<style>
-  :root {
-    --primary: #c42b1a;
-    --primary-hover: #a02215;
-    --bg: #f5f5f5;
-    --card-bg: #fff;
-    --text: #333;
-    --text-light: #666;
-    --border: #e5e5e5;
-    --rank-gold: #ff6600;
-    --rank-silver: #999;
+  function initParticles() {
+    const existing = document.getElementById('qi');
+    if (existing) return;
+    const canvas = document.createElement('canvas');
+    canvas.id = 'qi';
+    canvas.style.cssText = 'position:fixed;inset:0;z-index:2;pointer-events:none';
+    document.body.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+    let pts = [];
+    function resize() {
+      const dpr = Math.min(devicePixelRatio, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(x, y) {
+      for (let i = 0; i < 5; i++)
+        pts.push({ x, y, tx: x + (Math.random() - 0.5) * 60, ty: y + (Math.random() - 0.5) * 60, life: 35 + Math.random() * 20, r: 1 + Math.random() * 2 });
+      if (pts.length > 120) pts = pts.slice(-120);
+    }
+    window.addEventListener('mousemove', e => spawn(e.clientX, e.clientY));
+    function tick() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      pts.forEach(p => {
+        p.x += (p.tx - p.x) * 0.028;
+        p.y += (p.ty - p.y) * 0.028;
+        p.life -= 0.8;
+        ctx.fillStyle = `rgba(180,210,255,${Math.max(0, p.life / 55)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      pts = pts.filter(p => p.life > 0);
+      requestAnimationFrame(tick);
+    }
+    resize();
+    tick();
+    window.addEventListener('resize', resize);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Noto Sans SC', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* Header */
-  .site-header {
-    background: var(--primary);
-    color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-
-  .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-  }
-
-  .logo {
-    font-size: 1.4em;
-    font-weight: 700;
-    color: #fff;
-    white-space: nowrap;
-  }
-
-  .main-nav {
-    display: flex;
-    gap: 5px;
-    flex: 1;
-  }
-
-  .main-nav a {
-    padding: 8px 16px;
-    border-radius: 4px;
-    color: rgba(255,255,255,0.85);
-    font-size: 0.95em;
-    transition: 0.2s;
-  }
-
-  .main-nav a:hover, .main-nav a.active {
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .search-input {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9em;
-    width: 180px;
-    background: rgba(255,255,255,0.9);
-    color: #333;
-  }
-
-  .btn-primary {
-    background: #fff;
-    color: var(--primary);
-    border: none;
-    padding: 6px 16px;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .btn-primary:hover { background: #f0f0f0; }
-
-  /* Hero */
-  .hero {
-    background: linear-gradient(135deg, #c42b1a 0%, #8a1a0a 100%);
-    color: #fff;
-    padding: 50px 20px;
-  }
-
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-  }
-
-  .hero-text h1 { font-size: 2.2em; margin-bottom: 10px; }
-  .hero-text p { opacity: 0.85; font-size: 1.05em; }
-
-  .hero-stats { display: flex; gap: 40px; }
-  .stat { text-align: center; }
-  .stat-num { display: block; font-size: 1.8em; font-weight: 700; }
-  .stat-label { font-size: 0.85em; opacity: 0.75; }
-
-  /* Categories */
-  .categories {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 12px 0;
-  }
-
-  .section-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .cat-tag {
-    padding: 5px 16px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    color: var(--text-light);
-    border: 1px solid var(--border);
-    transition: 0.2s;
-    background: #fff;
-    cursor: pointer;
-  }
-
-  .cat-tag:hover, .cat-tag.active {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-  }
-
-  /* Main Content */
-  .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px 20px;
-  }
-
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 30px;
-  }
-
-  /* Novel Grid */
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--primary);
-  }
-
-  .section-header h2 { font-size: 1.2em; color: var(--text); }
-  .more-link { color: var(--primary); font-size: 0.9em; }
-  .more-link:hover { text-decoration: underline; }
-
-  .novel-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  .novel-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: block;
-  }
-
-  .novel-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  }
-
-  .novel-cover {
-    position: relative;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-  }
-
-  .novel-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .status-tag {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 0.75em;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .status-tag.serial { background: var(--primary); }
-  .status-tag.finished { background: #4a8c5c; }
-
-  .novel-info { padding: 12px; }
-  .novel-title { font-size: 1em; font-weight: 600; margin-bottom: 4px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .novel-author { font-size: 0.82em; color: var(--text-light); margin-bottom: 6px; }
-  .novel-desc { font-size: 0.8em; color: var(--text-light); line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-  .novel-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
-  .tag { padding: 1px 6px; background: #f0f0f0; border-radius: 3px; font-size: 0.72em; color: var(--text-light); }
-  .novel-update { font-size: 0.75em; color: var(--text-light); }
-
-  /* Sidebar */
-  .sidebar { display: flex; flex-direction: column; gap: 24px; }
-
-  .sidebar-block {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-
-  .sidebar-title {
-    font-size: 1em;
-    font-weight: 600;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ranking-list { list-style: none; }
-  .ranking-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
-  .ranking-item:last-child { border-bottom: none; }
-
-  .rank-num {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    font-size: 0.8em;
-    font-weight: 700;
-    color: var(--text-light);
-    background: #eee;
-    flex-shrink: 0;
-  }
-
-  .rank-num.top {
-    background: var(--rank-gold);
-    color: #fff;
-  }
-
-  .rank-info { flex: 1; display: flex; flex-direction: column; gap: 1px; }
-  .rank-title { font-size: 0.9em; font-weight: 500; color: var(--text); }
-  .rank-title:hover { color: var(--primary); }
-  .rank-author { font-size: 0.75em; color: var(--text-light); }
-  .rank-hot { font-size: 0.72em; color: var(--primary); font-weight: 600; }
-
-  .quick-links { display: flex; flex-direction: column; gap: 6px; }
-  .quick-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 4px; font-size: 0.88em; color: var(--text); transition: background 0.15s; }
-  .quick-item:hover { background: #f5f5f5; color: var(--primary); }
-  .q-num { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; background: #eee; border-radius: 3px; font-size: 0.75em; font-weight: 600; color: var(--text-light); }
-
-  /* Footer */
-  .site-footer {
-    background: #333;
-    color: #999;
-    text-align: center;
-    padding: 24px 20px;
-    font-size: 0.85em;
-    margin-top: 40px;
-  }
-
-  .footer-inner p { margin: 4px 0; }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .content-grid { grid-template-columns: 1fr; }
-    .novel-grid { grid-template-columns: repeat(3, 1fr); }
-    .sidebar { display: none; }
-  }
-
-  @media (max-width: 768px) {
-    .hero-inner { flex-direction: column; text-align: center; }
-    .hero-stats { justify-content: center; }
-    .novel-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .main-nav { display: none; }
-    .header-actions .search-input { display: none; }
-  }
-</style>
+  initParticles();
+</script>

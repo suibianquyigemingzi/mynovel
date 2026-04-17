@@ -1,0 +1,153 @@
+name: Qidian Tracker & Deploy
+
+on:
+  schedule:
+    - cron: "0 6,18 * * *"   # Run at 06:00 and 18:00 UTC = 14:00 and 02:00 MDT
+  workflow_dispatch:          # Allow manual trigger
+  push:
+    branches: [main]
+
+jobs:
+  collect-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright + browser
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Copy and run collector
+        env:
+          OUTPUT_DIR: ${{ github.workspace }}/data
+          TOP_N: "20"
+          KEEP_DAYS: "31"
+        run: |
+          cp -r ${{ github.workspace }}/.github ../.github.bak
+          cp scripts/collect_rankings.py ${{ github.workspace }}/collect_rankings.py
+          python ${{ github.workspace }}/collect_rankings.py
+
+      - name: Run analyzer + HTML builder
+        env:
+          OUTPUT_DIR: ${{ github.workspace }}/data
+        run: |
+          cp scripts/analyze_and_build.py ${{ github.workspace }}/analyze_and_build.py
+          python ${{ github.workspace }}/analyze_and_build.py
+
+      - name: Inject tracker HTML into Astro page
+        run: |
+          python3 - <<'EOF'
+          import re
+          import sys
+          from pathlib import Path
+
+          # Read the generated tracker HTML
+          tracker_html = Path("data/site/index.html").read_text(encoding="utf-8")
+
+          # Extract everything inside <body>...</body>
+          body_match = re.search(r"<body[^>]*>(.*?)</body>", tracker_html, re.DOTALL)
+          body_content = body_match.group(1) if body_match else tracker_html
+
+          # Extract style content
+          style_match = re.search(r"<style[^>]*>(.*?)</style>", tracker_html, re.DOTALL)
+          style_content = style_match.group(1) if style_match else ""
+
+          # Build the Astro page
+          astro = f'''---
+// Auto-generated tracker page
+---
+<style is:global>
+{style_content}
+</style>
+<div id="tracker-root" data-astro-generated>
+{body_content}
+</div>
+<script>
+  // Particle + parallax effects from tracker
+  const canvas = document.getElementById("qi");
+  if (!canvas) {{
+    const newCanvas = document.createElement("canvas");
+    newCanvas.id = "qi";
+    newCanvas.style.cssText = "position:fixed;inset:0;z-index:2;pointer-events:none";
+    document.body.prepend(newCanvas);
+  }}
+
+  let mx = 0, my = 0;
+  window.addEventListener("mousemove", e => {{
+    const rx = (e.clientX / window.innerWidth - 0.5) * 12;
+    const ry = (e.clientY / window.innerHeight - 0.5) * 8;
+    document.documentElement.style.setProperty("--mx", rx + "px");
+    document.documentElement.style.setProperty("--my", ry + "px");
+    const bg = document.querySelector(".scene-bg");
+    if (bg) bg.style.transform = "translate3d(" + rx + "px," + ry + "px,0) scale(1.02)";
+  }});
+
+  const qiCanvas = document.getElementById("qi");
+  if (qiCanvas) {{
+    const ctx = qiCanvas.getContext("2d");
+    let pts = [];
+    function resize() {{
+      const dpr = Math.min(devicePixelRatio, 2);
+      qiCanvas.width = window.innerWidth * dpr;
+      qiCanvas.height = window.innerHeight * dpr;
+      qiCanvas.style.width = window.innerWidth + "px";
+      qiCanvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }}
+    function spawn(x, y) {{
+      for (let i = 0; i < 5; i++)
+        pts.push({{
+          x, y,
+          tx: x + (Math.random() - 0.5) * 60,
+          ty: y + (Math.random() - 0.5) * 60,
+          life: 35 + Math.random() * 20,
+          r: 1 + Math.random() * 2
+        }});
+      if (pts.length > 120) pts = pts.slice(-120);
+    }}
+    window.addEventListener("mousemove", e => spawn(e.clientX, e.clientY));
+    function tick() {{
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      pts.forEach(p => {{
+        p.x += (p.tx - p.x) * 0.028;
+        p.y += (p.ty - p.y) * 0.028;
+        p.life -= 0.8;
+        ctx.fillStyle = `rgba(180,210,255,${Math.max(0, p.life / 55)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }});
+      pts = pts.filter(p => p.life > 0);
+      requestAnimationFrame(tick);
+    }}
+    resize();
+    tick();
+    window.addEventListener("resize", resize);
+  }}
+</script>
+'''
+          Path("src/pages/index.astro").write_text(astro, encoding="utf-8")
+          print("Astro page updated successfully")
+          EOF
+
+      - name: Commit updated data and Astro page
+        run: |
+          git config --local user.email "bot@mynovel.me"
+          git config --local user.name "mynovel bot"
+          git add data/latest data/snapshots data/analysis src/pages/index.astro
+          git diff --cached --quiet && echo "No changes to commit" || \
+            git commit -m "chore: update rankings data and site $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push origin main
