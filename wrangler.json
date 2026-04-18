@@ -1,14 +1,8 @@
 {
 	"name": "mynovel",
 	"compatibility_date": "2025-10-08",
-	"compatibility_flags": ["nodejs_compat"],
-	"main": "./dist/_worker.js/index.js",
 	"pages_build_output_dir": "./dist",
-	"assets": {
-		"directory": "./dist"
-	},
 	"observability": {
 		"enabled": true
-	},
-	"upload_source_maps": true
+	}
 }
