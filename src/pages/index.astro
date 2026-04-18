@@ -22,7 +22,7 @@ try {
   let mx=0, my=0;
   document.documentElement.style.setProperty('--mx','0px');
   document.documentElement.style.setProperty('--my','0px');
-  window.addEventListener('mousemove', e => {
+  window.addEventListener('mousemove', function(e) {
     const rx=(e.clientX/window.innerWidth-.5)*12;
     const ry=(e.clientY/window.innerHeight-.5)*8;
     document.documentElement.style.setProperty('--mx',rx+'px');
@@ -31,19 +31,19 @@ try {
     if(bg) bg.style.transform='translate3d('+rx+'px,'+ry+'px,0) scale(1.02)';
   });
 
-  const canvas=document.getElementById('qi');
-  if (!canvas) {
-    const c = document.createElement('canvas');
+  var canvasEl = document.getElementById('qi');
+  if (!canvasEl) {
+    var c = document.createElement('canvas');
     c.id = 'qi';
     c.style.cssText = 'position:fixed;inset:0;z-index:2;pointer-events:none';
     document.body.prepend(c);
   }
-  const qiCanvas = document.getElementById('qi');
+  var qiCanvas = document.getElementById('qi');
   if (qiCanvas) {
-    const ctx = qiCanvas.getContext('2d');
-    let pts = [];
+    var ctx = qiCanvas.getContext('2d');
+    var pts = [];
     function resize() {
-      const dpr = Math.min(devicePixelRatio, 2);
+      var dpr = Math.min(devicePixelRatio, 2);
       qiCanvas.width = window.innerWidth * dpr;
       qiCanvas.height = window.innerHeight * dpr;
       qiCanvas.style.width = window.innerWidth + 'px';
@@ -51,23 +51,24 @@ try {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function spawn(x, y) {
-      for (let i = 0; i < 5; i++)
-        pts.push({ x, y, tx: x + (Math.random() - 0.5) * 60, ty: y + (Math.random() - 0.5) * 60, life: 35 + Math.random() * 20, r: 1 + Math.random() * 2 });
+      for (var i = 0; i < 5; i++)
+        pts.push({x:x, y:y, tx:x+(Math.random()-.5)*60, ty:y+(Math.random()-.5)*60, life:35+Math.random()*20, r:1+Math.random()*2});
       if (pts.length > 120) pts = pts.slice(-120);
     }
-    window.addEventListener('mousemove', e => spawn(e.clientX, e.clientY));
+    window.addEventListener('mousemove', function(e) { spawn(e.clientX, e.clientY); });
     function tick() {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      pts.forEach(p => {
-        p.x += (p.tx - p.x) * 0.028;
-        p.y += (p.ty - p.y) * 0.028;
-        p.life -= 0.8;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        p.x += (p.tx - p.x) * .028;
+        p.y += (p.ty - p.y) * .028;
+        p.life -= .8;
         ctx.fillStyle = 'rgba(180,210,255,' + Math.max(0, p.life / 55) + ')';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
-      });
-      pts = pts.filter(p => p.life > 0);
+      }
+      pts = pts.filter(function(p) { return p.life > 0; });
       requestAnimationFrame(tick);
     }
     resize();
