@@ -3,6 +3,11 @@ name: Build & Deploy
 on:
   push:
     branches: [main]
+  schedule:
+    # 6 PM MDT (UTC-6) = 00:00 UTC next day
+    - cron: "0 0 * * *"
+    # 6 AM MDT = 12:00 UTC same day
+    - cron: "0 12 * * *"
 
 jobs:
   build:
