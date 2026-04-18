@@ -101,7 +101,7 @@
     var targetAngle = -Math.PI / 2;
     var trail = [];        // trail particles
     var sparks = [];       // spark particles
-    var t = 0;
+    var t = 0; window._swordT = 0;
 
     window.addEventListener('mousemove', function(e) {
       tx = e.clientX;
@@ -184,91 +184,112 @@
       ctx.translate(x, y);
       ctx.rotate(angle);
 
-      // Sword aura glow
-      var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, 80);
-      grd.addColorStop(0, 'rgba(180,210,255,0.15)');
+      // === SWORD AURA ===
+      var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, 90);
+      grd.addColorStop(0, 'rgba(180,210,255,0.1)');
       grd.addColorStop(1, 'rgba(180,210,255,0)');
-      ctx.beginPath();
-      ctx.arc(0, 0, 80, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(0, 0, 90, 0, Math.PI * 2);
+      ctx.fillStyle = grd; ctx.fill();
 
-      // === BLADE - 古风长剑 (elongated needle shape) ===
-      var bladeLen = 70;
-      var bladeW = 5;
-      ctx.shadowColor = 'rgba(180,210,255,0.8)';
-      ctx.shadowBlur = 18;
+      // ===== 剑身 (BLADE) =====
+      ctx.shadowColor = 'rgba(200,220,255,0.6)';
+      ctx.shadowBlur = 16;
 
-      // Main blade body
+      // 古风剑身 - 细长菱形，从剑尖到剑脊渐变收窄
+      var tipX = 75;  // 剑尖
+      var shoulderW = 3.5; // 肩宽
+      var guardX = -14;
+
       ctx.beginPath();
-      ctx.moveTo(bladeLen, 0);     // tip
-      ctx.lineTo(10, -bladeW);    // shoulder right
-      ctx.lineTo(-12, -4);         // near guard right
-      ctx.lineTo(-12, 4);          // near guard left
-      ctx.lineTo(10, bladeW);     // shoulder left
+      ctx.moveTo(tipX, 0);           // 剑尖 - 尖锐无球
+      ctx.lineTo(20, -shoulderW);   // 右侧肩部
+      ctx.lineTo(guardX, -3);       // 近格处右
+      ctx.lineTo(guardX, 3);         // 近格处左
+      ctx.lineTo(20, shoulderW);    // 左侧肩部
       ctx.closePath();
-      var bladeGrd = ctx.createLinearGradient(-12, 0, bladeLen, 0);
-      bladeGrd.addColorStop(0, 'rgba(100,130,180,0.3)');
-      bladeGrd.addColorStop(0.3, 'rgba(200,230,255,0.9)');
-      bladeGrd.addColorStop(0.6, 'rgba(240,250,255,1)');
+
+      var bladeGrd = ctx.createLinearGradient(guardX, 0, tipX, 0);
+      bladeGrd.addColorStop(0, 'rgba(80,100,160,0.5)');
+      bladeGrd.addColorStop(0.25, 'rgba(160,200,255,0.85)');
+      bladeGrd.addColorStop(0.6, 'rgba(220,240,255,0.95)');
       bladeGrd.addColorStop(1, 'rgba(255,255,255,1)');
-      ctx.fillStyle = bladeGrd;
-      ctx.fill();
+      ctx.fillStyle = bladeGrd; ctx.fill();
 
-      // 剑脊 - center ridge highlight
-      ctx.beginPath();
-      ctx.moveTo(-10, 0);
-      ctx.lineTo(60, 0);
-      ctx.strokeStyle = 'rgba(255,255,255,0.7)';
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-
-      // 血槽/开刃纹 - fuller grooves
       ctx.shadowBlur = 0;
-      ctx.beginPath(); ctx.moveTo(5, -3); ctx.lineTo(55, 0);
-      ctx.strokeStyle = 'rgba(180,210,255,0.35)'; ctx.lineWidth = 0.8; ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(5, 3); ctx.lineTo(55, 0);
-      ctx.strokeStyle = 'rgba(180,210,255,0.35)'; ctx.lineWidth = 0.8; ctx.stroke();
+      // 剑脊 - 中线高光
+      ctx.beginPath(); ctx.moveTo(-12, 0); ctx.lineTo(65, 0);
+      ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 1; ctx.stroke();
 
-      // Tip sparkle
-      ctx.beginPath(); ctx.arc(bladeLen, 0, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255,255,255,1)'; ctx.shadowColor = 'rgba(255,255,255,0.8)'; ctx.shadowBlur = 10; ctx.fill();
+      // 剑身纹路 - 剑身两道血槽 (开刃纹) 
+      ctx.beginPath(); ctx.moveTo(8, -2.2); ctx.quadraticCurveTo(40, -1, 62, 0);
+      ctx.strokeStyle = 'rgba(160,200,255,0.3)'; ctx.lineWidth = 0.7; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(8, 2.2); ctx.quadraticCurveTo(40, 1, 62, 0);
+      ctx.strokeStyle = 'rgba(160,200,255,0.3)'; ctx.lineWidth = 0.7; ctx.stroke();
 
-      // === 剑格 (Guard) - 太极/古纹 oval ===
+      // ===== 剑格 (GUARD) - 圆盘形太极风格 =====
       ctx.shadowBlur = 0;
-      ctx.beginPath(); ctx.ellipse(-14, 0, 7, 10, 0, 0, Math.PI * 2);
-      var gg = ctx.createRadialGradient(-14, 0, 0, -14, 0, 10);
-      gg.addColorStop(0, 'rgba(240,210,130,1)');
-      gg.addColorStop(1, 'rgba(160,130,60,0.9)');
+      ctx.beginPath(); ctx.arc(-15, 0, 9, 0, Math.PI * 2);
+      var gg = ctx.createRadialGradient(-15, 0, 1, -15, 0, 9);
+      gg.addColorStop(0, 'rgba(255,230,150,1)');
+      gg.addColorStop(0.6, 'rgba(210,170,80,0.95)');
+      gg.addColorStop(1, 'rgba(160,120,40,0.85)');
       ctx.fillStyle = gg; ctx.fill();
-      ctx.strokeStyle = 'rgba(255,220,100,0.5)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.beginPath(); ctx.arc(-14, 0, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(200,180,80,0.8)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,220,100,0.6)'; ctx.lineWidth = 1.5; ctx.stroke();
 
-      // === 剑柄 (Handle) with wrap pattern ===
+      // 剑格太极纹 - 阴爻阳爻暗示
+      ctx.beginPath(); ctx.moveTo(-22, 0); ctx.lineTo(-8, 0);
+      ctx.strokeStyle = 'rgba(140,100,30,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(-15, 0, 3.5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(140,100,30,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+
+      // ===== 剑柄 (HANDLE) - 圆柱古风竹节柄 =====
       ctx.beginPath();
-      ctx.moveTo(-14, -4);
-      ctx.lineTo(-36, -3);
-      ctx.lineTo(-36, 3);
-      ctx.lineTo(-14, 4);
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(80,50,20,0.9)'; ctx.fill();
-      // 柄绳 wrapping
-      for (var gi = 0; gi < 6; gi++) {
-        var hx = -16 - gi * 3.5;
-        ctx.beginPath(); ctx.moveTo(hx, -4); ctx.lineTo(hx, 4);
-        ctx.strokeStyle = 'rgba(200,160,80,0.45)'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.moveTo(-15, -3.2);
+      ctx.bezierCurveTo(-22, -3.2, -22, 3.2, -15, 3.2);
+      ctx.lineTo(-15, -3.2);
+      ctx.fillStyle = 'rgba(60,40,15,0.95)'; ctx.fill();
+
+      // 柄缠 - 竹节纹理（横向纹理）
+      for (var gi = 0; gi < 7; gi++) {
+        var px = -17 - gi * 2.5;
+        ctx.beginPath();
+        ctx.moveTo(px, -3.2);
+        ctx.bezierCurveTo(px - 0.5, 0, px - 0.5, 0, px, 3.2);
+        ctx.strokeStyle = 'rgba(180,140,60,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
       }
 
-      // === 剑首 (Pommel) - 玉璧风格 ===
-      ctx.beginPath(); ctx.arc(-37, 0, 5.5, 0, Math.PI * 2);
-      var pg = ctx.createRadialGradient(-37, 0, 0, -37, 0, 5.5);
-      pg.addColorStop(0, 'rgba(220,240,255,0.9)');
-      pg.addColorStop(0.5, 'rgba(180,210,255,0.7)');
-      pg.addColorStop(1, 'rgba(100,160,220,0.5)');
-      ctx.fillStyle = pg; ctx.shadowColor = 'rgba(180,210,255,0.7)'; ctx.shadowBlur = 14; ctx.fill();
-      ctx.beginPath(); ctx.arc(-37, 0, 3, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 0.8; ctx.stroke();
+      // 柄首（柄尾）- 圆润收窄
+      ctx.beginPath();
+      ctx.moveTo(-34, -2.5);
+      ctx.bezierCurveTo(-40, -1.5, -40, 1.5, -34, 2.5);
+      ctx.lineTo(-34, -2.5);
+      ctx.fillStyle = 'rgba(50,30,10,0.9)'; ctx.fill();
+
+      // ===== 剑首/剑穗环 (POMMEL) - 圆环带穗风格 =====
+      // 外环
+      ctx.beginPath(); ctx.arc(-41, 0, 6, 0, Math.PI * 2);
+      var pg = ctx.createRadialGradient(-41, 0, 0, -41, 0, 6);
+      pg.addColorStop(0, 'rgba(200,230,255,0.9)');
+      pg.addColorStop(0.5, 'rgba(140,190,255,0.7)');
+      pg.addColorStop(1, 'rgba(80,140,220,0.5)');
+      ctx.fillStyle = pg; ctx.shadowColor = 'rgba(180,210,255,0.8)'; ctx.shadowBlur = 12; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 1; ctx.stroke();
+
+      // 中心孔（象征剑穗环）
+      ctx.beginPath(); ctx.arc(-41, 0, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(60,40,15,0.8)'; ctx.shadowBlur = 0; ctx.fill();
+
+      // 剑穗（tassel）- 三根丝线飘动
+      var t = Date.now() * 0.002;
+      for (var ti = 0; ti < 3; ti++) {
+        var tx = -41;
+        var ty = 0;
+        var phase = ti * 0.8 + t;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty + (ti - 1) * 2);
+        ctx.quadraticCurveTo(tx - 8, ty + (ti - 1) * 2 + Math.sin(phase) * 4, tx - 15, ty + (ti - 1) * 2 + Math.sin(phase) * 6 + 5);
+        ctx.strokeStyle = 'rgba(200,180,100,0.7)'; ctx.lineWidth = 1; ctx.stroke();
+      }
 
       ctx.restore();
     }
