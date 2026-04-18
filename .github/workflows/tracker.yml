@@ -61,7 +61,7 @@ jobs:
         run: |
           git config --local user.email "bot@mynovel.me"
           git config --local user.name "mynovel bot"
-          git add data/latest data/snapshots data/analysis src/pages/index.astro dist/
+          git add -f data/latest data/snapshots data/analysis src/pages/index.astro dist/
           git diff --cached --quiet && echo "No changes to commit" || {
             git commit -m "chore: update rankings data and site $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push origin main
