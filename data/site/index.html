@@ -255,7 +255,7 @@
         ctx.beginPath();
         ctx.moveTo(px, -3.2);
         ctx.bezierCurveTo(px - 0.5, 0, px - 0.5, 0, px, 3.2);
-        ctx.strokeStyle = 'rgba(180,140,60,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.strokeStyle = 'rgba(140,180,240,0.45)'; ctx.lineWidth = 1.5; ctx.stroke();
       }
 
       // 柄首（柄尾）- 圆润收窄
@@ -288,7 +288,7 @@
         ctx.beginPath();
         ctx.moveTo(tx, ty + (ti - 1) * 2);
         ctx.quadraticCurveTo(tx - 8, ty + (ti - 1) * 2 + Math.sin(phase) * 4, tx - 15, ty + (ti - 1) * 2 + Math.sin(phase) * 6 + 5);
-        ctx.strokeStyle = 'rgba(200,180,100,0.7)'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.strokeStyle = 'rgba(160,200,255,0.65)'; ctx.lineWidth = 1; ctx.stroke();
       }
 
       ctx.restore();
@@ -314,7 +314,7 @@
         var p = sparks[i];
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,240,180,' + (p.life * 0.8) + ')';
+        ctx.fillStyle = 'rgba(180,220,255,' + (p.life * 0.8) + ')';
         ctx.shadowColor = 'rgba(255,220,100,0.6)';
         ctx.shadowBlur = 8;
         ctx.fill();
