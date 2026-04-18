@@ -28,6 +28,11 @@ jobs:
       - name: Build Astro site
         run: npx astro build
 
+      - name: Configure git identity
+        run: |
+          git config user.name "matthew"
+          git config user.email "matthew@example.com"
+
       - name: Commit dist to GitHub
         run: |
           git add -f dist/
