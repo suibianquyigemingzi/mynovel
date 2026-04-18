@@ -127,7 +127,7 @@
       angle += diff * 0.15;
 
       // Spawn trail particles
-      if (Math.random() < 0.6) {
+      if (Math.random() < 0.95) {
         var perpX = Math.cos(angle + Math.PI / 2) * (Math.random() - 0.5) * 3;
         var perpY = Math.sin(angle + Math.PI / 2) * (Math.random() - 0.5) * 3;
         trail.push({
@@ -135,20 +135,20 @@
           y: my + perpY,
           vx: -Math.cos(angle) * (1 + Math.random() * 2),
           vy: -Math.sin(angle) * (1 + Math.random() * 2),
-          life: 1,
+          life: 1.5,
           size: 1.5 + Math.random() * 2
         });
       }
 
       // Spawn sparks on fast movement
       var speed = Math.sqrt((tx-mx)*(tx-mx)+(ty-my)*(ty-my));
-      if (speed > 3 && Math.random() < 0.4) {
+      if (speed > 1.5 && Math.random() < 0.8) {
         sparks.push({
           x: mx, y: my,
-          vx: (Math.random() - 0.5) * 8,
-          vy: (Math.random() - 0.5) * 8,
-          life: 1,
-          size: 1 + Math.random() * 1.5
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.5) * 14,
+          life: 1.5,
+          size: 2 + Math.random() * 3
         });
       }
 
@@ -159,10 +159,10 @@
         p.y += p.vy;
         p.vx *= 0.96;
         p.vy *= 0.96;
-        p.life -= 0.03;
+        p.life -= 0.018;
         if (p.life <= 0) trail.splice(i, 1);
       }
-      if (trail.length > 80) trail = trail.slice(-80);
+      if (trail.length > 150) trail = trail.slice(-150);
 
       // Update sparks
       for (var i = sparks.length - 1; i >= 0; i--) {
@@ -171,10 +171,10 @@
         p.y += p.vy;
         p.vx *= 0.92;
         p.vy *= 0.92;
-        p.life -= 0.05;
+        p.life -= 0.025;
         if (p.life <= 0) sparks.splice(i, 1);
       }
-      if (sparks.length > 40) sparks = sparks.slice(-40);
+      if (sparks.length > 80) sparks = sparks.slice(-80);
 
       t++;
     }
