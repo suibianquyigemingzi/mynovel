@@ -2,7 +2,7 @@ name: Qidian Tracker & Deploy
 
 on:
   schedule:
-    - cron: "0 6,18 * * *"   # 06:00 and 18:00 UTC = 14:00 and 02:00 MDT
+    - cron: "0 6,18 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -16,13 +16,22 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
+          persist-credentials: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Playwright + browser
         run: |
@@ -45,11 +54,15 @@ jobs:
       - name: Inject tracker HTML into Astro page
         run: python scripts/inject_tracker.py
 
-      - name: Commit updated data and Astro page
+      - name: Build Astro site
+        run: npx astro build
+
+      - name: Commit and push
         run: |
           git config --local user.email "bot@mynovel.me"
           git config --local user.name "mynovel bot"
-          git add data/latest data/snapshots data/analysis src/pages/index.astro scripts/inject_tracker.py
-          git diff --cached --quiet && echo "No changes to commit" || \
+          git add data/latest data/snapshots data/analysis src/pages/index.astro dist/
+          git diff --cached --quiet && echo "No changes to commit" || {
             git commit -m "chore: update rankings data and site $(date -u '+%Y-%m-%d %H:%M UTC')"
-          git push origin main
+            git push origin main
+          }
