@@ -1,4 +1,11 @@
-<!DOCTYPE html><div class="tracker-root"><style is:global>
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <meta name='description' content='起点中文网榜单追踪 - 四榜实时数据，题材权重动态换肤' />
+  <title>起点榜单追踪 · 玄幻</title>
+  <style>
     :root { --bg:#101019; --bg2:#1B1428; --panel:rgba(248,250,252,0.08); --text:#F8FAFC; --muted:#D8D2CA; --accent:#D6B07A; --gold:#F0D8A7; }
     *,*::before,*::after { box-sizing:border-box; }
     html,body { margin:0; min-height:100vh; }
@@ -46,6 +53,8 @@
     .tall-panel { min-height:520px; }
     @media(max-width:1140px){ .layout{ grid-template-columns:1fr; gap:24px; } .center-stage{ min-height:auto; gap:18px; } .core-metrics{ justify-content:flex-start; } }
   </style>
+</head>
+<body>
   <div class='scene-bg'></div>
   <div class='scene-vignette'></div>
   <canvas id='qi'></canvas>
@@ -97,4 +106,5 @@
     }
     resize();tick();window.addEventListener('resize',resize);
   </script>
-</div> <script type="module">document.documentElement.style.setProperty("--mx","0px");document.documentElement.style.setProperty("--my","0px");window.addEventListener("mousemove",function(o){const a=(o.clientX/window.innerWidth-.5)*12,d=(o.clientY/window.innerHeight-.5)*8;document.documentElement.style.setProperty("--mx",a+"px"),document.documentElement.style.setProperty("--my",d+"px");const e=document.querySelector(".scene-bg");e&&(e.style.transform="translate3d("+a+"px,"+d+"px,0) scale(1.02)")});var s=document.getElementById("qi");if(!s){var m=document.createElement("canvas");m.id="qi",m.style.cssText="position:fixed;inset:0;z-index:2;pointer-events:none",document.body.prepend(m)}var i=document.getElementById("qi");if(i){let o=function(){var e=Math.min(devicePixelRatio,2);i.width=window.innerWidth*e,i.height=window.innerHeight*e,i.style.width=window.innerWidth+"px",i.style.height=window.innerHeight+"px",r.setTransform(e,0,0,e,0,0)},a=function(e,n){for(var l=0;l<5;l++)t.push({x:e,y:n,tx:e+(Math.random()-.5)*60,ty:n+(Math.random()-.5)*60,life:35+Math.random()*20,r:1+Math.random()*2});t.length>120&&(t=t.slice(-120))},d=function(){r.clearRect(0,0,window.innerWidth,window.innerHeight);for(var e=0;e<t.length;e++){var n=t[e];n.x+=(n.tx-n.x)*.028,n.y+=(n.ty-n.y)*.028,n.life-=.8,r.fillStyle="rgba(180,210,255,"+Math.max(0,n.life/55)+")",r.beginPath(),r.arc(n.x,n.y,n.r,0,Math.PI*2),r.fill()}t=t.filter(function(l){return l.life>0}),requestAnimationFrame(d)};var r=i.getContext("2d"),t=[];window.addEventListener("mousemove",function(e){a(e.clientX,e.clientY)}),o(),d(),window.addEventListener("resize",o)}</script>
+</body>
+</html>

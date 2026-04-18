@@ -23,6 +23,15 @@ jobs:
 
       - run: npx astro build
 
+      # Replace the Astro-generated index.html with the tracker HTML
+      # (which contains the live ranking data with proper Chinese chars)
+      - name: Inject tracker HTML
+        run: |
+          # Copy the generated tracker site index.html to dist/index.html
+          # This replaces the Astro-built index.html with our tracker
+          cp data/site/index.html dist/index.html
+          echo "Replaced dist/index.html with tracker HTML ($(wc -c < data/site/index.html) bytes)"
+
       - name: Deploy to Cloudflare Pages
         run: npx wrangler pages deploy dist/ --project-name=mynovel
         env:
