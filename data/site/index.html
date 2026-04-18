@@ -14,40 +14,49 @@
     .scene-vignette { position:fixed; inset:0; z-index:1; background:radial-gradient(ellipse 80% 60% at 50% 38%,rgba(6,14,26,.18) 0%,rgba(6,14,26,.72) 100%); }
     canvas#sword { position:fixed; inset:0; z-index:2; pointer-events:none; }
     .shell { position:relative; z-index:3; min-height:100vh; padding:28px 18px 40px; }
-    .layout { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; width:100%; max-width:min(1440px,60vw); margin:0 auto; }
-    .side { display:flex; flex-direction:column; gap:16px; justify-content:flex-start; min-height:0; }
-    .glass { background:var(--panel); backdrop-filter:blur(28px) saturate(1.05); border-radius:28px; border:1px solid rgba(255,255,255,.05); padding:18px; }
-    .list-panel { display:flex; flex-direction:column; height:520px; overflow:hidden; }
+
+    .layout { display:grid; grid-template-columns:210px 1fr 1fr; gap:18px; align-items:start; width:100%; max-width:min(1440px,60vw); margin:0 auto; }
+    .side { display:flex; flex-direction:column; gap:16px; justify-content:flex-start; }
+    .glass { background:var(--panel); backdrop-filter:blur(28px) saturate(1.05); border-radius:28px; border:1px solid rgba(255,255,255,.05); padding:16px; }
     .panel-head { display:flex; gap:12px; align-items:flex-start; margin-bottom:10px; flex-shrink:0; }
     .sword-line { width:3px; min-height:48px; border-radius:999px; background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(143,184,242,.85),rgba(255,255,255,.04)); box-shadow:0 0 10px rgba(143,184,242,.4); flex-shrink:0; }
-    .panel-head h3 { margin:0; font-size:17px; font-weight:600; color:var(--text); }
-    .panel-head p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.7; }
-    .rows-scroll { flex:1; overflow-y:auto; min-height:0; }
+    .panel-head h3 { margin:0; font-size:15px; font-weight:600; color:var(--text); }
+    .panel-head p { margin:4px 0 0; color:var(--muted); font-size:11px; line-height:1.6; }
+    .rows-scroll { flex:1; overflow-y:auto; min-height:0; max-height:490px; }
     .rows-scroll::-webkit-scrollbar { width:3px; }
     .rows-scroll::-webkit-scrollbar-thumb { background:rgba(143,184,242,0.3); border-radius:3px; }
     .rows-scroll::-webkit-scrollbar-track { background:transparent; }
-    .row { display:grid; grid-template-columns:38px minmax(0,1fr); gap:12px; align-items:start; padding:10px 0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent); position:relative; }
+    .row { display:grid; grid-template-columns:38px minmax(0,1fr); gap:12px; align-items:start; padding:9px 0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent); position:relative; }
     .row::after { content:''; position:absolute; left:0; right:0; bottom:0; height:1px; background:linear-gradient(90deg,transparent,rgba(143,184,242,.15),transparent); }
-    .rank { font-size:17px; color:var(--gold); padding-top:1px; }
-    .title { font-size:14px; color:var(--text); line-height:1.4; }
-    .meta { margin-top:4px; color:var(--muted); font-size:11px; line-height:1.6; }
-    
+    .rank { font-size:16px; color:var(--gold); padding-top:1px; }
+    .title { font-size:13px; color:var(--text); line-height:1.4; }
+    .meta { margin-top:3px; color:var(--muted); font-size:11px; line-height:1.5; }
     .glow-num { text-shadow:0 0 8px rgba(143,184,242,.38),0 0 18px rgba(143,184,242,.2); }
-    .theme-pill { display:inline-flex; align-items:center; gap:10px; margin-top:14px; padding:9px 14px; border-radius:999px; background:rgba(255,255,255,.07); color:var(--gold); font-size:13px; }
-    .theme-pill i { width:9px; height:9px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.9),rgba(143,184,242,.3) 50%,transparent 70%); box-shadow:0 0 12px rgba(143,184,242,.8); animation:aura 2.6s ease-in-out infinite; }
+    .theme-pill { display:inline-flex; align-items:center; gap:10px; margin-top:12px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.07); color:var(--gold); font-size:12px; }
+    .theme-pill i { width:8px; height:8px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.9),rgba(143,184,242,.3) 50%,transparent 70%); box-shadow:0 0 12px rgba(143,184,242,.8); animation:aura 2.6s ease-in-out infinite; }
     @keyframes aura { 0%,100%{transform:scale(.88); opacity:.65;} 50%{transform:scale(1.2); opacity:1;} }
-    .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-    .tags span { font-size:11px; color:var(--muted); padding:5px 10px; border-radius:999px; background:rgba(255,255,255,.05); }
-    .analysis-list { margin:12px 0 0; padding-left:16px; color:var(--muted); line-height:1.9; font-size:13px; }
-    .theme-panel { flex:0 0 auto; }
-    .progress-panel { flex:0 0 auto; min-height:120px; }
-    .progress-wrap { margin-top:12px; }
+    .tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+    .tags span { font-size:11px; color:var(--muted); padding:4px 9px; border-radius:999px; background:rgba(255,255,255,.05); }
+    .analysis-list { margin:10px 0 0; padding-left:14px; color:var(--muted); line-height:1.9; font-size:12px; }
+    .progress-panel { flex:0 0 auto; min-height:110px; }
+    .progress-wrap { margin-top:10px; }
     .plabel { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
-    .plabel strong { color:var(--gold); font-size:16px; }
-    .progress { margin-top:10px; height:8px; border-radius:999px; background:rgba(255,255,255,.09); overflow:hidden; }
+    .plabel strong { color:var(--gold); font-size:15px; }
+    .progress { margin-top:8px; height:7px; border-radius:999px; background:rgba(255,255,255,.09); overflow:hidden; }
     .bar { height:100%; border-radius:999px; background:linear-gradient(90deg,rgba(143,184,242,.4),rgba(190,220,255,.85)); }
-    .pmeta { margin-top:8px; font-size:13px; color:var(--gold); font-weight:500; }
-    @media(max-width:900px) { .layout{ grid-template-columns:1fr; } }
+    .pmeta { margin-top:6px; font-size:13px; color:var(--gold); font-weight:500; }
+    .top-analysis-panel { flex:0 0 auto; }
+    .top-list { display:flex; flex-direction:column; gap:6px; }
+    .top-row { display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid rgba(143,184,242,0.07); }
+    .top-row:last-child { border-bottom:none; }
+    .top-medal { font-size:13px; width:22px; text-align:center; flex-shrink:0; }
+    .top-info { flex:1; min-width:0; }
+    .top-title { font-size:12px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .top-meta { font-size:10px; color:var(--muted); margin-top:1px; }
+    .top-bar-bg { margin-top:4px; height:3px; background:rgba(255,255,255,0.07); border-radius:999px; }
+    .top-bar-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,rgba(143,184,242,.4),rgba(190,220,255,.85)); }
+    .top-score { font-size:11px; color:var(--gold); flex-shrink:0; min-width:34px; text-align:right; }
+    @media(max-width:1100px) { .layout{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -57,8 +66,21 @@
   <main class='shell'>
     <section class='layout'>
 
-      <!-- LEFT COLUMN -->
-      <aside class='side left'>
+      <!-- COL 1: Analysis + Theme -->
+      <div class='side left-col'>
+        <div class='glass top-analysis-panel'>
+          <div class='panel-head'><div class='sword-line'></div><div><h3>🔥 综合热度</h3><p>月票·畅销·推荐三榜加权</p></div></div>
+          <div class='top-list'><div class='top-row'><div class='top-medal'>🥇</div><div class='top-info'><div class='top-title'>玄鉴仙族</div><div class='top-meta'>季越人 · 仙侠</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:100%'></div></div></div><div class='top-score'>59分</div></div>
+<div class='top-row'><div class='top-medal'>🥈</div><div class='top-info'><div class='top-title'>夜无疆</div><div class='top-meta'>辰东 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:96%'></div></div></div><div class='top-score'>57分</div></div>
+<div class='top-row'><div class='top-medal'>🥉</div><div class='top-info'><div class='top-title'>捞尸人</div><div class='top-meta'>纯洁滴小龙 · 都市</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:93%'></div></div></div><div class='top-score'>55分</div></div>
+<div class='top-row'><div class='top-medal'>4</div><div class='top-info'><div class='top-title'>青山</div><div class='top-meta'>会说话的肘子 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:77%'></div></div></div><div class='top-score'>46分</div></div>
+<div class='top-row'><div class='top-medal'>5</div><div class='top-info'><div class='top-title'>没钱修什么仙？</div><div class='top-meta'>熊狼狗 · 仙侠</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:74%'></div></div></div><div class='top-score'>44分</div></div>
+<div class='top-row'><div class='top-medal'>6</div><div class='top-info'><div class='top-title'>苟在武道世界成圣</div><div class='top-meta'>在水中的纸老虎 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:57%'></div></div></div><div class='top-score'>34分</div></div>
+<div class='top-row'><div class='top-medal'>7</div><div class='top-info'><div class='top-title'>元始法则</div><div class='top-meta'>飞天鱼 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:57%'></div></div></div><div class='top-score'>34分</div></div>
+<div class='top-row'><div class='top-medal'>8</div><div class='top-info'><div class='top-title'>诡秘之主</div><div class='top-meta'>爱潜水的乌贼 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:52%'></div></div></div><div class='top-score'>31分</div></div>
+<div class='top-row'><div class='top-medal'>9</div><div class='top-info'><div class='top-title'>异度旅社</div><div class='top-meta'>远瞳 · 科幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:50%'></div></div></div><div class='top-score'>30分</div></div>
+<div class='top-row'><div class='top-medal'>10</div><div class='top-info'><div class='top-title'>以神通之名</div><div class='top-meta'>猪心虾仁 · 都市</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:47%'></div></div></div><div class='top-score'>28分</div></div></div>
+        </div>
         <div class='glass theme-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>本周题材</h3><p>裂天遗迹 · 断崖幽冥，位面压迫，黑暗旷野</p></div></div>
           <div class='theme-pill'><i></i><span>玄幻</span></div>
@@ -69,301 +91,60 @@
 <li>本轮没有掉榜作品。</li>
 </ul>
         </div>
+      </div>
 
-        <!-- 月票榜 -->
+      <!-- COL 2: 月票 + 推荐 -->
+      <div class='side'>
         <div class='glass list-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>月票榜</h3><p>主榜热度与硬强度</p></div></div>
-          <div class='rows-scroll'><div class='row'>
-  <div class='rank glow-num'>01</div>
-  <div class='book'>
-    <div class='title'>玄鉴仙族</div>
-    <div class='meta'>季越人 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>02</div>
-  <div class='book'>
-    <div class='title'>捞尸人</div>
-    <div class='meta'>纯洁滴小龙 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>03</div>
-  <div class='book'>
-    <div class='title'>夜无疆</div>
-    <div class='meta'>辰东 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>04</div>
-  <div class='book'>
-    <div class='title'>苟在武道世界成圣</div>
-    <div class='meta'>在水中的纸老虎 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>05</div>
-  <div class='book'>
-    <div class='title'>没钱修什么仙？</div>
-    <div class='meta'>熊狼狗 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>06</div>
-  <div class='book'>
-    <div class='title'>青山</div>
-    <div class='meta'>会说话的肘子 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>07</div>
-  <div class='book'>
-    <div class='title'>以神通之名</div>
-    <div class='meta'>猪心虾仁 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>08</div>
-  <div class='book'>
-    <div class='title'>以一龙之力打倒整个世界！</div>
-    <div class='meta'>唐宋元明氢 · 轻小说 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>09</div>
-  <div class='book'>
-    <div class='title'>我，枪神！</div>
-    <div class='meta'>如水意 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>10</div>
-  <div class='book'>
-    <div class='title'>元始法则</div>
-    <div class='meta'>飞天鱼 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>11</div>
-  <div class='book'>
-    <div class='title'>1984：从破产川菜馆开始</div>
-    <div class='meta'>轻语江湖 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>12</div>
-  <div class='book'>
-    <div class='title'>从魔法少女开始独断万古</div>
-    <div class='meta'>绿茶藨子 · 轻小说 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>13</div>
-  <div class='book'>
-    <div class='title'>异度旅社</div>
-    <div class='meta'>远瞳 · 科幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>14</div>
-  <div class='book'>
-    <div class='title'>赤心巡天</div>
-    <div class='meta'>情何以甚 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>15</div>
-  <div class='book'>
-    <div class='title'>冬日重现</div>
-    <div class='meta'>雪梨炖茶 · 轻小说 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>16</div>
-  <div class='book'>
-    <div class='title'>人在美利坚：我的叔叔堂吉诃德</div>
-    <div class='meta'>喜欢吃圣代 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>17</div>
-  <div class='book'>
-    <div class='title'>这个地下城长蘑菇了</div>
-    <div class='meta'>生吃菌子 · 奇幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>18</div>
-  <div class='book'>
-    <div class='title'>诡秘之主</div>
-    <div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>19</div>
-  <div class='book'>
-    <div class='title'>廓晋</div>
-    <div class='meta'>榴弹怕水 · 历史 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>20</div>
-  <div class='book'>
-    <div class='title'>我在永夜打造庇护所</div>
-    <div class='meta'>中世纪的兔子 · 玄幻 · 连载</div>
-  </div>
-  </div></div>
+          <div class='rows-scroll'><div class='row'><div class='rank glow-num'>01</div><div class='book'><div class='title'>玄鉴仙族</div><div class='meta'>季越人 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>02</div><div class='book'><div class='title'>捞尸人</div><div class='meta'>纯洁滴小龙 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>03</div><div class='book'><div class='title'>夜无疆</div><div class='meta'>辰东 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>04</div><div class='book'><div class='title'>苟在武道世界成圣</div><div class='meta'>在水中的纸老虎 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>05</div><div class='book'><div class='title'>没钱修什么仙？</div><div class='meta'>熊狼狗 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>06</div><div class='book'><div class='title'>青山</div><div class='meta'>会说话的肘子 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>07</div><div class='book'><div class='title'>以神通之名</div><div class='meta'>猪心虾仁 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>08</div><div class='book'><div class='title'>以一龙之力打倒整个世界！</div><div class='meta'>唐宋元明氢 · 轻小说 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>09</div><div class='book'><div class='title'>我，枪神！</div><div class='meta'>如水意 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>10</div><div class='book'><div class='title'>元始法则</div><div class='meta'>飞天鱼 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>11</div><div class='book'><div class='title'>1984：从破产川菜馆开始</div><div class='meta'>轻语江湖 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>12</div><div class='book'><div class='title'>从魔法少女开始独断万古</div><div class='meta'>绿茶藨子 · 轻小说 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>13</div><div class='book'><div class='title'>异度旅社</div><div class='meta'>远瞳 · 科幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>14</div><div class='book'><div class='title'>赤心巡天</div><div class='meta'>情何以甚 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>15</div><div class='book'><div class='title'>冬日重现</div><div class='meta'>雪梨炖茶 · 轻小说 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>16</div><div class='book'><div class='title'>人在美利坚：我的叔叔堂吉诃德</div><div class='meta'>喜欢吃圣代 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>17</div><div class='book'><div class='title'>这个地下城长蘑菇了</div><div class='meta'>生吃菌子 · 奇幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>18</div><div class='book'><div class='title'>诡秘之主</div><div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>19</div><div class='book'><div class='title'>廓晋</div><div class='meta'>榴弹怕水 · 历史 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>20</div><div class='book'><div class='title'>我在永夜打造庇护所</div><div class='meta'>中世纪的兔子 · 玄幻 · 连载</div></div></div></div>
         </div>
-
-        <!-- 推荐榜 -->
         <div class='glass list-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>推荐榜</h3><p>扩散速度与读者投票</p></div></div>
-          <div class='rows-scroll'><div class='row'>
-  <div class='rank glow-num'>01</div>
-  <div class='book'>
-    <div class='title'>夜无疆</div>
-    <div class='meta'>辰东 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>02</div>
-  <div class='book'>
-    <div class='title'>玄鉴仙族</div>
-    <div class='meta'>季越人 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>03</div>
-  <div class='book'>
-    <div class='title'>捞尸人</div>
-    <div class='meta'>纯洁滴小龙 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>04</div>
-  <div class='book'>
-    <div class='title'>异度旅社</div>
-    <div class='meta'>远瞳 · 科幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>05</div>
-  <div class='book'>
-    <div class='title'>青山</div>
-    <div class='meta'>会说话的肘子 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>06</div>
-  <div class='book'>
-    <div class='title'>诡秘之主</div>
-    <div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>07</div>
-  <div class='book'>
-    <div class='title'>元始法则</div>
-    <div class='meta'>飞天鱼 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>08</div>
-  <div class='book'>
-    <div class='title'>清光宝鉴</div>
-    <div class='meta'>一片苏叶 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>09</div>
-  <div class='book'>
-    <div class='title'>没钱修什么仙？</div>
-    <div class='meta'>熊狼狗 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>10</div>
-  <div class='book'>
-    <div class='title'>廓晋</div>
-    <div class='meta'>榴弹怕水 · 历史 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>11</div>
-  <div class='book'>
-    <div class='title'>赤心巡天</div>
-    <div class='meta'>情何以甚 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>12</div>
-  <div class='book'>
-    <div class='title'>苟在两界修仙</div>
-    <div class='meta'>文抄公 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>13</div>
-  <div class='book'>
-    <div class='title'>现实编程协会</div>
-    <div class='meta'>木也马 · 科幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>14</div>
-  <div class='book'>
-    <div class='title'>北望江山</div>
-    <div class='meta'>孤独麦客 · 历史 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>15</div>
-  <div class='book'>
-    <div class='title'>1979黄金时代</div>
-    <div class='meta'>睡觉会变白 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>16</div>
-  <div class='book'>
-    <div class='title'>我，枪神！</div>
-    <div class='meta'>如水意 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>17</div>
-  <div class='book'>
-    <div class='title'>长夜君主</div>
-    <div class='meta'>风凌天下 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>18</div>
-  <div class='book'>
-    <div class='title'>山海提灯</div>
-    <div class='meta'>跃千愁 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>19</div>
-  <div class='book'>
-    <div class='title'>龙藏</div>
-    <div class='meta'>烟雨江南 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>20</div>
-  <div class='book'>
-    <div class='title'>腐朽世界</div>
-    <div class='meta'>滚开 · 玄幻 · 连载</div>
-  </div>
-  </div></div>
+          <div class='rows-scroll'><div class='row'><div class='rank glow-num'>01</div><div class='book'><div class='title'>夜无疆</div><div class='meta'>辰东 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>02</div><div class='book'><div class='title'>玄鉴仙族</div><div class='meta'>季越人 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>03</div><div class='book'><div class='title'>捞尸人</div><div class='meta'>纯洁滴小龙 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>04</div><div class='book'><div class='title'>异度旅社</div><div class='meta'>远瞳 · 科幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>05</div><div class='book'><div class='title'>青山</div><div class='meta'>会说话的肘子 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>06</div><div class='book'><div class='title'>诡秘之主</div><div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>07</div><div class='book'><div class='title'>元始法则</div><div class='meta'>飞天鱼 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>08</div><div class='book'><div class='title'>清光宝鉴</div><div class='meta'>一片苏叶 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>09</div><div class='book'><div class='title'>没钱修什么仙？</div><div class='meta'>熊狼狗 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>10</div><div class='book'><div class='title'>廓晋</div><div class='meta'>榴弹怕水 · 历史 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>11</div><div class='book'><div class='title'>赤心巡天</div><div class='meta'>情何以甚 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>12</div><div class='book'><div class='title'>苟在两界修仙</div><div class='meta'>文抄公 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>13</div><div class='book'><div class='title'>现实编程协会</div><div class='meta'>木也马 · 科幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>14</div><div class='book'><div class='title'>北望江山</div><div class='meta'>孤独麦客 · 历史 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>15</div><div class='book'><div class='title'>1979黄金时代</div><div class='meta'>睡觉会变白 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>16</div><div class='book'><div class='title'>我，枪神！</div><div class='meta'>如水意 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>17</div><div class='book'><div class='title'>长夜君主</div><div class='meta'>风凌天下 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>18</div><div class='book'><div class='title'>山海提灯</div><div class='meta'>跃千愁 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>19</div><div class='book'><div class='title'>龙藏</div><div class='meta'>烟雨江南 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>20</div><div class='book'><div class='title'>腐朽世界</div><div class='meta'>滚开 · 玄幻 · 连载</div></div></div></div>
         </div>
-      </aside>
+      </div>
 
-      <!-- RIGHT COLUMN -->
-      <aside class='side right'>
-        <!-- 剑匣储能 -->
+      <!-- COL 3: 储能 + 畅销 + 收藏 -->
+      <div class='side'>
         <div class='glass progress-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>剑匣储能</h3><p>灵力规模模拟</p></div></div>
           <div class='progress-wrap'>
@@ -372,310 +153,64 @@
             <div class='pmeta'>下次更新: 2026-04-18 18:00 MDT (埃德蒙顿)</div>
           </div>
         </div>
-
-        <!-- 畅销榜 -->
         <div class='glass list-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>畅销榜</h3><p>付费意愿与消费热度</p></div></div>
-          <div class='rows-scroll'><div class='row'>
-  <div class='rank glow-num'>01</div>
-  <div class='book'>
-    <div class='title'>玄鉴仙族</div>
-    <div class='meta'>季越人 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>02</div>
-  <div class='book'>
-    <div class='title'>夜无疆</div>
-    <div class='meta'>辰东 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>03</div>
-  <div class='book'>
-    <div class='title'>捞尸人</div>
-    <div class='meta'>纯洁滴小龙 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>04</div>
-  <div class='book'>
-    <div class='title'>苟在武道世界成圣</div>
-    <div class='meta'>在水中的纸老虎 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>05</div>
-  <div class='book'>
-    <div class='title'>没钱修什么仙？</div>
-    <div class='meta'>熊狼狗 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>06</div>
-  <div class='book'>
-    <div class='title'>青山</div>
-    <div class='meta'>会说话的肘子 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>07</div>
-  <div class='book'>
-    <div class='title'>以神通之名</div>
-    <div class='meta'>猪心虾仁 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>08</div>
-  <div class='book'>
-    <div class='title'>诡秘之主</div>
-    <div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>09</div>
-  <div class='book'>
-    <div class='title'>苟在两界修仙</div>
-    <div class='meta'>文抄公 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>10</div>
-  <div class='book'>
-    <div class='title'>以一龙之力打倒整个世界！</div>
-    <div class='meta'>唐宋元明氢 · 轻小说 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>11</div>
-  <div class='book'>
-    <div class='title'>我在永夜打造庇护所</div>
-    <div class='meta'>中世纪的兔子 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>12</div>
-  <div class='book'>
-    <div class='title'>元始法则</div>
-    <div class='meta'>飞天鱼 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>13</div>
-  <div class='book'>
-    <div class='title'>人在美利坚：我的叔叔堂吉诃德</div>
-    <div class='meta'>喜欢吃圣代 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>14</div>
-  <div class='book'>
-    <div class='title'>1984：从破产川菜馆开始</div>
-    <div class='meta'>轻语江湖 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>15</div>
-  <div class='book'>
-    <div class='title'>观山！</div>
-    <div class='meta'>要胖的红烧肉 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>16</div>
-  <div class='book'>
-    <div class='title'>异度旅社</div>
-    <div class='meta'>远瞳 · 科幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>17</div>
-  <div class='book'>
-    <div class='title'>我，枪神！</div>
-    <div class='meta'>如水意 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>18</div>
-  <div class='book'>
-    <div class='title'>我的智商逐年递增</div>
-    <div class='meta'>介安艺 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>19</div>
-  <div class='book'>
-    <div class='title'>赤心巡天</div>
-    <div class='meta'>情何以甚 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>20</div>
-  <div class='book'>
-    <div class='title'>仙官志</div>
-    <div class='meta'>妖娆呀 · 玄幻 · 连载</div>
-  </div>
-  </div></div>
+          <div class='rows-scroll'><div class='row'><div class='rank glow-num'>01</div><div class='book'><div class='title'>玄鉴仙族</div><div class='meta'>季越人 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>02</div><div class='book'><div class='title'>夜无疆</div><div class='meta'>辰东 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>03</div><div class='book'><div class='title'>捞尸人</div><div class='meta'>纯洁滴小龙 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>04</div><div class='book'><div class='title'>苟在武道世界成圣</div><div class='meta'>在水中的纸老虎 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>05</div><div class='book'><div class='title'>没钱修什么仙？</div><div class='meta'>熊狼狗 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>06</div><div class='book'><div class='title'>青山</div><div class='meta'>会说话的肘子 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>07</div><div class='book'><div class='title'>以神通之名</div><div class='meta'>猪心虾仁 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>08</div><div class='book'><div class='title'>诡秘之主</div><div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>09</div><div class='book'><div class='title'>苟在两界修仙</div><div class='meta'>文抄公 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>10</div><div class='book'><div class='title'>以一龙之力打倒整个世界！</div><div class='meta'>唐宋元明氢 · 轻小说 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>11</div><div class='book'><div class='title'>我在永夜打造庇护所</div><div class='meta'>中世纪的兔子 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>12</div><div class='book'><div class='title'>元始法则</div><div class='meta'>飞天鱼 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>13</div><div class='book'><div class='title'>人在美利坚：我的叔叔堂吉诃德</div><div class='meta'>喜欢吃圣代 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>14</div><div class='book'><div class='title'>1984：从破产川菜馆开始</div><div class='meta'>轻语江湖 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>15</div><div class='book'><div class='title'>观山！</div><div class='meta'>要胖的红烧肉 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>16</div><div class='book'><div class='title'>异度旅社</div><div class='meta'>远瞳 · 科幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>17</div><div class='book'><div class='title'>我，枪神！</div><div class='meta'>如水意 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>18</div><div class='book'><div class='title'>我的智商逐年递增</div><div class='meta'>介安艺 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>19</div><div class='book'><div class='title'>赤心巡天</div><div class='meta'>情何以甚 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>20</div><div class='book'><div class='title'>仙官志</div><div class='meta'>妖娆呀 · 玄幻 · 连载</div></div></div></div>
         </div>
-
-        <!-- 收藏榜 -->
         <div class='glass list-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>收藏榜</h3><p>长期积累与经典沉淀</p></div></div>
-          <div class='rows-scroll'><div class='row'>
-  <div class='rank glow-num'>01</div>
-  <div class='book'>
-    <div class='title'>诡秘之主</div>
-    <div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>02</div>
-  <div class='book'>
-    <div class='title'>灵境行者</div>
-    <div class='meta'>卖报小郎君 · 科幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>03</div>
-  <div class='book'>
-    <div class='title'>斗破苍穹</div>
-    <div class='meta'>天蚕土豆 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>04</div>
-  <div class='book'>
-    <div class='title'>圣墟</div>
-    <div class='meta'>辰东 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>05</div>
-  <div class='book'>
-    <div class='title'>遮天</div>
-    <div class='meta'>辰东 · 仙侠 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>06</div>
-  <div class='book'>
-    <div class='title'>修真聊天群（聊天群的日常生活）</div>
-    <div class='meta'>圣骑士的传说 · 都市 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>07</div>
-  <div class='book'>
-    <div class='title'>大奉打更人</div>
-    <div class='meta'>卖报小郎君 · 仙侠 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>08</div>
-  <div class='book'>
-    <div class='title'>绍宋</div>
-    <div class='meta'>榴弹怕水 · 历史 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>09</div>
-  <div class='book'>
-    <div class='title'>玄鉴仙族</div>
-    <div class='meta'>季越人 · 仙侠 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>10</div>
-  <div class='book'>
-    <div class='title'>捞尸人</div>
-    <div class='meta'>纯洁滴小龙 · 都市 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>11</div>
-  <div class='book'>
-    <div class='title'>深海余烬</div>
-    <div class='meta'>远瞳 · 科幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>12</div>
-  <div class='book'>
-    <div class='title'>斗罗大陆III龙王传说</div>
-    <div class='meta'>唐家三少 · 玄幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>13</div>
-  <div class='book'>
-    <div class='title'>夜的命名术</div>
-    <div class='meta'>会说话的肘子 · 都市 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>14</div>
-  <div class='book'>
-    <div class='title'>凡人修仙之仙界篇</div>
-    <div class='meta'>忘语 · 仙侠 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>15</div>
-  <div class='book'>
-    <div class='title'>离婚后前妻成了债主</div>
-    <div class='meta'>啊欢 · 都市 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>16</div>
-  <div class='book'>
-    <div class='title'>吞噬星空</div>
-    <div class='meta'>我吃西红柿 · 科幻 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>17</div>
-  <div class='book'>
-    <div class='title'>道诡异仙</div>
-    <div class='meta'>狐尾的笔 · 玄幻 · 连载</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>18</div>
-  <div class='book'>
-    <div class='title'>都重生了谁谈恋爱啊</div>
-    <div class='meta'>错哪儿了 · 都市 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>19</div>
-  <div class='book'>
-    <div class='title'>一念永恒</div>
-    <div class='meta'>耳根 · 仙侠 · 完本</div>
-  </div>
-  </div>
-<div class='row'>
-  <div class='rank glow-num'>20</div>
-  <div class='book'>
-    <div class='title'>光阴之外</div>
-    <div class='meta'>耳根 · 仙侠 · 连载</div>
-  </div>
-  </div></div>
+          <div class='rows-scroll'><div class='row'><div class='rank glow-num'>01</div><div class='book'><div class='title'>诡秘之主</div><div class='meta'>爱潜水的乌贼 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>02</div><div class='book'><div class='title'>灵境行者</div><div class='meta'>卖报小郎君 · 科幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>03</div><div class='book'><div class='title'>斗破苍穹</div><div class='meta'>天蚕土豆 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>04</div><div class='book'><div class='title'>圣墟</div><div class='meta'>辰东 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>05</div><div class='book'><div class='title'>遮天</div><div class='meta'>辰东 · 仙侠 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>06</div><div class='book'><div class='title'>修真聊天群（聊天群的日常生活）</div><div class='meta'>圣骑士的传说 · 都市 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>07</div><div class='book'><div class='title'>大奉打更人</div><div class='meta'>卖报小郎君 · 仙侠 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>08</div><div class='book'><div class='title'>绍宋</div><div class='meta'>榴弹怕水 · 历史 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>09</div><div class='book'><div class='title'>玄鉴仙族</div><div class='meta'>季越人 · 仙侠 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>10</div><div class='book'><div class='title'>捞尸人</div><div class='meta'>纯洁滴小龙 · 都市 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>11</div><div class='book'><div class='title'>深海余烬</div><div class='meta'>远瞳 · 科幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>12</div><div class='book'><div class='title'>斗罗大陆III龙王传说</div><div class='meta'>唐家三少 · 玄幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>13</div><div class='book'><div class='title'>夜的命名术</div><div class='meta'>会说话的肘子 · 都市 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>14</div><div class='book'><div class='title'>凡人修仙之仙界篇</div><div class='meta'>忘语 · 仙侠 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>15</div><div class='book'><div class='title'>离婚后前妻成了债主</div><div class='meta'>啊欢 · 都市 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>16</div><div class='book'><div class='title'>吞噬星空</div><div class='meta'>我吃西红柿 · 科幻 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>17</div><div class='book'><div class='title'>道诡异仙</div><div class='meta'>狐尾的笔 · 玄幻 · 连载</div></div></div>
+<div class='row'><div class='rank glow-num'>18</div><div class='book'><div class='title'>都重生了谁谈恋爱啊</div><div class='meta'>错哪儿了 · 都市 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>19</div><div class='book'><div class='title'>一念永恒</div><div class='meta'>耳根 · 仙侠 · 完本</div></div></div>
+<div class='row'><div class='rank glow-num'>20</div><div class='book'><div class='title'>光阴之外</div><div class='meta'>耳根 · 仙侠 · 连载</div></div></div></div>
         </div>
-      </aside>
+      </div>
 
     </section>
   </main>
   <script>
   (function(){
-    var canvas = document.getElementById('sword');
-    var ctx = canvas.getContext('2d');
-    var dpr = Math.min(devicePixelRatio, 2);
-    function resize() { canvas.width = window.innerWidth * dpr; canvas.height = window.innerHeight * dpr; canvas.style.cssText='width:'+window.innerWidth+'px;height:'+window.innerHeight+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); }
-    resize(); window.addEventListener('resize', resize);
+    var canvas=document.getElementById('sword'),ctx=canvas.getContext('2d'),dpr=Math.min(devicePixelRatio,2);
+    function rs(){canvas.width=window.innerWidth*dpr;canvas.height=window.innerHeight*dpr;canvas.style.cssText='width:'+window.innerWidth+'px;height:'+window.innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);}
+    rs();window.addEventListener('resize',rs);
     var mx=window.innerWidth/2,my=window.innerHeight/2,tx=mx,ty=my,angle=-Math.PI/2,trail=[],sparks=[],t=0;
     window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
-    function update() {
+    function update(){
       mx+=(tx-mx)*0.1;my+=(ty-my)*0.1;
       var dx=tx-mx,dy=ty-my;
       if(Math.abs(dx)>0.5||Math.abs(dy)>0.5){var ta=Math.atan2(dy,dx);var diff=ta-angle;while(diff>Math.PI)diff-=Math.PI*2;while(diff<-Math.PI)diff+=Math.PI*2;angle+=diff*0.1;}
@@ -685,11 +220,10 @@
       for(var i=trail.length-1;i>=0;i--){var p=trail[i];p.x+=p.vx;p.y+=p.vy;p.vx*=0.95;p.vy*=0.95;p.life-=0.018;if(p.life<=0)trail.splice(i,1);}
       if(trail.length>150)trail=trail.slice(-150);
       for(var i=sparks.length-1;i>=0;i--){var p=sparks[i];p.x+=p.vx;p.y+=p.vy;p.vx*=0.92;p.vy*=0.92;p.life-=0.025;if(p.life<=0)sparks.splice(i,1);}
-      if(sparks.length>80)sparks=sparks.slice(-80);
-      t++;
+      if(sparks.length>80)sparks=sparks.slice(-80);t++;
     }
     function drawSword(x,y,ang){
-      ctx.save(); ctx.translate(x,y); ctx.rotate(ang);
+      ctx.save();ctx.translate(x,y);ctx.rotate(ang);
       var grd=ctx.createRadialGradient(0,0,0,0,0,90);grd.addColorStop(0,'rgba(180,210,255,0.1)');grd.addColorStop(1,'rgba(180,210,255,0)');ctx.beginPath();ctx.arc(0,0,90,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
       ctx.shadowColor='rgba(200,220,255,0.6)';ctx.shadowBlur=16;
       var tipX=75,shoulderW=3.5,guardX=-14;
@@ -698,7 +232,7 @@
       ctx.shadowBlur=0;ctx.beginPath();ctx.moveTo(-12,0);ctx.lineTo(65,0);ctx.strokeStyle='rgba(255,255,255,0.75)';ctx.lineWidth=1;ctx.stroke();
       ctx.beginPath();ctx.moveTo(8,-2.2);ctx.quadraticCurveTo(40,-1,62,0);ctx.strokeStyle='rgba(160,200,255,0.3)';ctx.lineWidth=0.7;ctx.stroke();
       ctx.beginPath();ctx.moveTo(8,2.2);ctx.quadraticCurveTo(40,1,62,0);ctx.strokeStyle='rgba(160,200,255,0.3)';ctx.lineWidth=0.7;ctx.stroke();
-      ctx.shadowBlur=0;ctx.beginPath();ctx.arc(-15,0,9,0,Math.PI*2);var gg=ctx.createRadialGradient(-15,0,1,-15,0,9);gg.addColorStop(0,'rgba(255,230,150,1)');gg.addColorStop(0.6,'rgba(210,170,80,0.95)');gg.addColorStop(1,'rgba(160,120,40,0.85)');ctx.fillStyle=gg;ctx.fill();ctx.strokeStyle='rgba(255,220,100,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.beginPath();ctx.arc(-15,0,9,0,Math.PI*2);var gg=ctx.createRadialGradient(-15,0,1,-15,0,9);gg.addColorStop(0,'rgba(255,230,150,1)');gg.addColorStop(0.6,'rgba(210,170,80,0.95)');gg.addColorStop(1,'rgba(160,120,40,0.85)');ctx.fillStyle=gg;ctx.fill();ctx.strokeStyle='rgba(255,220,100,0.6)';ctx.lineWidth=1.5;ctx.stroke();
       ctx.beginPath();ctx.moveTo(-22,0);ctx.lineTo(-8,0);ctx.strokeStyle='rgba(140,100,30,0.8)';ctx.lineWidth=2;ctx.stroke();
       ctx.beginPath();ctx.arc(-15,0,3.5,0,Math.PI*2);ctx.strokeStyle='rgba(140,100,30,0.6)';ctx.lineWidth=1;ctx.stroke();
       ctx.beginPath();ctx.moveTo(-15,-3.2);ctx.bezierCurveTo(-22,-3.2,-22,3.2,-15,3.2);ctx.lineTo(-15,-3.2);ctx.fillStyle='rgba(60,40,15,0.95)';ctx.fill();
@@ -715,8 +249,7 @@
       for(var i=0;i<trail.length;i++){var p=trail[i];ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fillStyle='rgba(180,210,255,'+(p.life*0.5)+')';ctx.shadowColor='rgba(180,210,255,0.5)';ctx.shadowBlur=6;ctx.fill();}
       ctx.shadowBlur=0;
       for(var i=0;i<sparks.length;i++){var p=sparks[i];ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fillStyle='rgba(180,220,255,'+(p.life*0.8)+')';ctx.shadowColor='rgba(180,220,255,0.6)';ctx.shadowBlur=8;ctx.fill();}
-      ctx.shadowBlur=0;
-      drawSword(mx,my,angle);
+      ctx.shadowBlur=0;drawSword(mx,my,angle);
     }
     function loop(){update();render();requestAnimationFrame(loop);}
     loop();
