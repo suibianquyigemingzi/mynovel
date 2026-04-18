@@ -4,9 +4,14 @@ on:
   push:
     branches: [main]
   schedule:
-    # 6 AM and 6 PM MDT
+    # 6 AM and 6 PM MDT (Edmonton = UTC-6)
+    # 6 AM MDT = 12:00 UTC
+    # 6 PM MDT = 00:00 UTC next day
     - cron: "0 12 * * *"
     - cron: "0 0 * * *"
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -23,9 +28,13 @@ jobs:
 
       - run: npm ci
 
-      - run: npx astro build
+      - run: node scripts/build_html.js
 
-      # Replace Astro's output with the tracker HTML (proper UTF-8 Chinese)
-      - run: cp data/site/index.html dist/index.html && echo "Replaced with tracker HTML ($(wc -c < data/site/index.html) bytes)"
+      - run: |
+          cp data/site/index.html dist/index.html
+          echo "Deployed tracker HTML ($(wc -c < data/site/index.html) bytes)"
 
-      - run: git add -f dist/ && git commit -m "chore: deploy tracker site $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
+      - run: |
+          git config user.name "mynovel-bot"
+          git config user.email "bot@mynovel"
+          git add -f dist/ && git commit -m "deploy: tracker $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
