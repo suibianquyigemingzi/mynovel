@@ -4,13 +4,12 @@ on:
   push:
     branches: [main]
   schedule:
-    # 6 PM MDT (UTC-6) = 00:00 UTC next day
-    - cron: "0 0 * * *"
-    # 6 AM MDT = 12:00 UTC same day
+    # 6 AM and 6 PM MDT
     - cron: "0 12 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,3 +22,8 @@ jobs:
       - run: npm ci
 
       - run: npx astro build
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages deploy dist/ --project-name=mynovel
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
