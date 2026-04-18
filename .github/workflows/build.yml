@@ -28,11 +28,8 @@ jobs:
       - name: Build Astro site
         run: npx astro build
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mynovel
-          directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit dist to GitHub
+        run: |
+          git add -f dist/
+          git commit -m "build: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
