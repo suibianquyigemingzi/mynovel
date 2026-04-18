@@ -184,69 +184,91 @@
       ctx.translate(x, y);
       ctx.rotate(angle);
 
-      // Sword glow aura
-      var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, 60);
+      // Sword aura glow
+      var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, 80);
       grd.addColorStop(0, 'rgba(180,210,255,0.15)');
       grd.addColorStop(1, 'rgba(180,210,255,0)');
       ctx.beginPath();
-      ctx.arc(0, 0, 60, 0, Math.PI * 2);
+      ctx.arc(0, 0, 80, 0, Math.PI * 2);
       ctx.fillStyle = grd;
       ctx.fill();
 
-      // Sword blade (elongated diamond)
-      var bladeLen = 40;
-      var bladeW = 4;
+      // === BLADE - 古风长剑 (elongated needle shape) ===
+      var bladeLen = 70;
+      var bladeW = 5;
+      ctx.shadowColor = 'rgba(180,210,255,0.8)';
+      ctx.shadowBlur = 18;
+
+      // Main blade body
       ctx.beginPath();
-      ctx.moveTo(bladeLen, 0);
-      ctx.lineTo(0, -bladeW);
-      ctx.lineTo(-bladeLen * 0.4, 0);
-      ctx.lineTo(0, bladeW);
+      ctx.moveTo(bladeLen, 0);     // tip
+      ctx.lineTo(10, -bladeW);    // shoulder right
+      ctx.lineTo(-12, -4);         // near guard right
+      ctx.lineTo(-12, 4);          // near guard left
+      ctx.lineTo(10, bladeW);     // shoulder left
       ctx.closePath();
-      var bladeGrd = ctx.createLinearGradient(-bladeLen * 0.4, 0, bladeLen, 0);
-      bladeGrd.addColorStop(0, 'rgba(143,184,242,0.3)');
-      bladeGrd.addColorStop(0.5, 'rgba(220,240,255,0.95)');
+      var bladeGrd = ctx.createLinearGradient(-12, 0, bladeLen, 0);
+      bladeGrd.addColorStop(0, 'rgba(100,130,180,0.3)');
+      bladeGrd.addColorStop(0.3, 'rgba(200,230,255,0.9)');
+      bladeGrd.addColorStop(0.6, 'rgba(240,250,255,1)');
       bladeGrd.addColorStop(1, 'rgba(255,255,255,1)');
       ctx.fillStyle = bladeGrd;
-      ctx.shadowColor = 'rgba(180,210,255,0.9)';
-      ctx.shadowBlur = 14;
       ctx.fill();
 
-      // Blade center line
+      // 剑脊 - center ridge highlight
       ctx.beginPath();
-      ctx.moveTo(-bladeLen * 0.3, 0);
-      ctx.lineTo(bladeLen * 0.85, 0);
-      ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-      ctx.lineWidth = 0.8;
+      ctx.moveTo(-10, 0);
+      ctx.lineTo(60, 0);
+      ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
-      // Sword guard (cross guard)
+      // 血槽/开刃纹 - fuller grooves
       ctx.shadowBlur = 0;
-      ctx.beginPath();
-      ctx.moveTo(-3, -8);
-      ctx.lineTo(-3, 8);
-      ctx.lineTo(2, 6);
-      ctx.lineTo(2, -6);
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(200,180,120,0.9)';
-      ctx.fill();
+      ctx.beginPath(); ctx.moveTo(5, -3); ctx.lineTo(55, 0);
+      ctx.strokeStyle = 'rgba(180,210,255,0.35)'; ctx.lineWidth = 0.8; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(5, 3); ctx.lineTo(55, 0);
+      ctx.strokeStyle = 'rgba(180,210,255,0.35)'; ctx.lineWidth = 0.8; ctx.stroke();
 
-      // Handle
-      ctx.beginPath();
-      ctx.moveTo(-3, -4);
-      ctx.lineTo(-18, -2.5);
-      ctx.lineTo(-18, 2.5);
-      ctx.lineTo(-3, 4);
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(100,80,50,0.9)';
-      ctx.fill();
+      // Tip sparkle
+      ctx.beginPath(); ctx.arc(bladeLen, 0, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,1)'; ctx.shadowColor = 'rgba(255,255,255,0.8)'; ctx.shadowBlur = 10; ctx.fill();
 
-      // Pommel (glowing orb at end)
+      // === 剑格 (Guard) - 太极/古纹 oval ===
+      ctx.shadowBlur = 0;
+      ctx.beginPath(); ctx.ellipse(-14, 0, 7, 10, 0, 0, Math.PI * 2);
+      var gg = ctx.createRadialGradient(-14, 0, 0, -14, 0, 10);
+      gg.addColorStop(0, 'rgba(240,210,130,1)');
+      gg.addColorStop(1, 'rgba(160,130,60,0.9)');
+      ctx.fillStyle = gg; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,220,100,0.5)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(-14, 0, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(200,180,80,0.8)'; ctx.fill();
+
+      // === 剑柄 (Handle) with wrap pattern ===
       ctx.beginPath();
-      ctx.arc(-18, 0, 3, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(180,210,255,0.8)';
-      ctx.shadowColor = 'rgba(180,210,255,0.8)';
-      ctx.shadowBlur = 10;
-      ctx.fill();
+      ctx.moveTo(-14, -4);
+      ctx.lineTo(-36, -3);
+      ctx.lineTo(-36, 3);
+      ctx.lineTo(-14, 4);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(80,50,20,0.9)'; ctx.fill();
+      // 柄绳 wrapping
+      for (var gi = 0; gi < 6; gi++) {
+        var hx = -16 - gi * 3.5;
+        ctx.beginPath(); ctx.moveTo(hx, -4); ctx.lineTo(hx, 4);
+        ctx.strokeStyle = 'rgba(200,160,80,0.45)'; ctx.lineWidth = 1.5; ctx.stroke();
+      }
+
+      // === 剑首 (Pommel) - 玉璧风格 ===
+      ctx.beginPath(); ctx.arc(-37, 0, 5.5, 0, Math.PI * 2);
+      var pg = ctx.createRadialGradient(-37, 0, 0, -37, 0, 5.5);
+      pg.addColorStop(0, 'rgba(220,240,255,0.9)');
+      pg.addColorStop(0.5, 'rgba(180,210,255,0.7)');
+      pg.addColorStop(1, 'rgba(100,160,220,0.5)');
+      ctx.fillStyle = pg; ctx.shadowColor = 'rgba(180,210,255,0.7)'; ctx.shadowBlur = 14; ctx.fill();
+      ctx.beginPath(); ctx.arc(-37, 0, 3, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 0.8; ctx.stroke();
 
       ctx.restore();
     }
