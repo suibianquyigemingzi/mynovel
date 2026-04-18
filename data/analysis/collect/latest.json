@@ -1,0 +1,22 @@
+{
+  "ranking_key": "collect",
+  "generated_at": "2026-04-15T12:00:27.208873+00:00",
+  "current_file": "/home/matthew/.openclaw/workspace/qidian-tracker/data/snapshots/collect/2026-04-15/2026-04-15T12-00-27.126135+00-00.json",
+  "previous_file": "/home/matthew/.openclaw/workspace/qidian-tracker/data/snapshots/collect/2026-04-15/2026-04-15T01-14-21.166512+00-00.json",
+  "summary": {
+    "top_1": "诡秘之主",
+    "entry_count": 20,
+    "new_entries": [],
+    "dropped_entries": [],
+    "moved_up": [],
+    "moved_down": [],
+    "unchanged_count": 20
+  },
+  "analysis": [
+    "榜首保持不变：诡秘之主。",
+    "本轮没有新进榜作品。",
+    "本轮没有掉榜作品。",
+    "本轮没有明显上升作品。",
+    "本轮没有明显下降作品。"
+  ]
+}

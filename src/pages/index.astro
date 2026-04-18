@@ -1,57 +1,53 @@
 ---
-// Auto-generated tracker page - DO NOT EDIT MANUALLY
-// This file is rebuilt on every GitHub Actions run
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const trackerHtmlPath = join(process.cwd(), 'data', 'site', 'index.html');
-let trackerHtml = '';
+let trackerHtml = '<div style="padding:40px;color:#fff">数据加载中...</div>';
 
 try {
   const raw = readFileSync(trackerHtmlPath, 'utf-8');
-  // Extract body content
   const bodyMatch = raw.match(/<body[^>]*>([\s\S]*?)<\/body>/);
   const bodyContent = bodyMatch ? bodyMatch[1] : raw;
-  // Extract styles
   const styleMatch = raw.match(/<style[^>]*>([\s\S]*?)<\/style>/);
   const styleContent = styleMatch ? styleMatch[1] : '';
   trackerHtml = `<style is:global>${styleContent}</style>${bodyContent}`;
 } catch (e) {
-  // Fallback if no data yet
-  trackerHtml = '<div style="padding:40px;color:#fff;text-align:center;font-family:sans-serif;"><h2>数据加载中...</h2><p>首次构建可能需要几分钟，请稍后刷新。</p></div>';
+  // fallback
 }
 ---
-<div set:html={trackerHtml} />
+<div class="tracker-root" set:html={trackerHtml} />
 
 <script>
-  // Particle + parallax effects
-  let mx = 0, my = 0;
-  document.documentElement.style.setProperty('--mx', '0px');
-  document.documentElement.style.setProperty('--my', '0px');
+  let mx=0, my=0;
+  document.documentElement.style.setProperty('--mx','0px');
+  document.documentElement.style.setProperty('--my','0px');
   window.addEventListener('mousemove', e => {
-    const rx = (e.clientX / window.innerWidth - 0.5) * 12;
-    const ry = (e.clientY / window.innerHeight - 0.5) * 8;
-    document.documentElement.style.setProperty('--mx', rx + 'px');
-    document.documentElement.style.setProperty('--my', ry + 'px');
-    const bg = document.querySelector('.scene-bg');
-    if (bg) bg.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) scale(1.02)';
+    const rx=(e.clientX/window.innerWidth-.5)*12;
+    const ry=(e.clientY/window.innerHeight-.5)*8;
+    document.documentElement.style.setProperty('--mx',rx+'px');
+    document.documentElement.style.setProperty('--my',ry+'px');
+    const bg=document.querySelector('.scene-bg');
+    if(bg) bg.style.transform='translate3d('+rx+'px,'+ry+'px,0) scale(1.02)';
   });
 
-  function initParticles() {
-    const existing = document.getElementById('qi');
-    if (existing) return;
-    const canvas = document.createElement('canvas');
-    canvas.id = 'qi';
-    canvas.style.cssText = 'position:fixed;inset:0;z-index:2;pointer-events:none';
-    document.body.prepend(canvas);
-    const ctx = canvas.getContext('2d');
+  const canvas=document.getElementById('qi');
+  if (!canvas) {
+    const c = document.createElement('canvas');
+    c.id = 'qi';
+    c.style.cssText = 'position:fixed;inset:0;z-index:2;pointer-events:none';
+    document.body.prepend(c);
+  }
+  const qiCanvas = document.getElementById('qi');
+  if (qiCanvas) {
+    const ctx = qiCanvas.getContext('2d');
     let pts = [];
     function resize() {
       const dpr = Math.min(devicePixelRatio, 2);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      qiCanvas.width = window.innerWidth * dpr;
+      qiCanvas.height = window.innerHeight * dpr;
+      qiCanvas.style.width = window.innerWidth + 'px';
+      qiCanvas.style.height = window.innerHeight + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function spawn(x, y) {
@@ -66,7 +62,7 @@ try {
         p.x += (p.tx - p.x) * 0.028;
         p.y += (p.ty - p.y) * 0.028;
         p.life -= 0.8;
-        ctx.fillStyle = `rgba(180,210,255,${Math.max(0, p.life / 55)})`;
+        ctx.fillStyle = 'rgba(180,210,255,' + Math.max(0, p.life / 55) + ')';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -78,5 +74,4 @@ try {
     tick();
     window.addEventListener('resize', resize);
   }
-  initParticles();
 </script>

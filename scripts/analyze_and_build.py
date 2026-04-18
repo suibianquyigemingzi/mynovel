@@ -75,12 +75,14 @@ def compare_snapshots(current: dict, previous: dict | None) -> tuple[dict, list[
         analysis.append(f"榜首保持：{summary['top_1']}。")
 
     if new_entries:
-        analysis.append(f"新进榜：{'，'.join(f\"{e['title']}(#{e['rank']})\" for e in new_entries[:5])}。")
+        names = "，".join(f"{e['title']}(#{e['rank']})" for e in new_entries[:5])
+        analysis.append(f"新进榜：{names}。")
     else:
         analysis.append("本轮无新进榜作品。")
 
     if dropped:
-        analysis.append(f"掉榜：{'，'.join(f\"{e['title']}(原#{e['rank']})\" for e in dropped[:5])}。")
+        names = "，".join(f"{e['title']}(原#{e['rank']})" for e in dropped[:5])
+        analysis.append(f"掉榜：{names}。")
     else:
         analysis.append("本轮无掉榜作品。")
 
@@ -267,12 +269,12 @@ def build_html(data_dir: Path) -> Path:
       canvas.style.width=window.innerWidth+'px'; canvas.style.height=window.innerHeight+'px';
       ctx.setTransform(dpr,0,0,dpr,0,0);
     }}
-    function spawn(x,y){{for(let i=0;i<5;i++)pts.push({{x,y,tx:x+(Math.random()-.5)*60,ty:y+(Math.random()-.5)*60,life:35+Math.random()*20,r:1+Math.random()*2}});if(pts.length>120)pts=pts.slice(-120);}}
+    function spawn(x,y){{for(var i=0;i<5;i++)pts.push({{x:x,y:y,tx:x+(Math.random()-.5)*60,ty:y+(Math.random()-.5)*60,life:35+Math.random()*20,r:1+Math.random()*2}});if(pts.length>120)pts=pts.slice(-120);}}
     window.addEventListener('mousemove',e=>{{spawn(e.clientX,e.clientY);}});
-    function tick(){{
+    def tick(){{
       ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
-      pts.forEach(p=>{{p.x+=(p.tx-p.x)*.028;p.y+=(p.ty-p.y)*.028;p.life-=.8;ctx.fillStyle=`rgba(180,210,255,${Math.max(0,p.life/55)})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}});
-      pts=pts.filter(p=>p.life>0);
+      pts.forEach(function(p){{p.x+=(p.tx-p.x)*.028;p.y+=(p.ty-p.y)*.028;p.life-=.8;ctx.fillStyle='rgba(180,210,255,'+(Math.max(0,p.life/55))+')';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}});
+      pts=pts.filter(function(p){{return p.life>0;}});
       requestAnimationFrame(tick);
     }}
     resize();tick();window.addEventListener('resize',resize);

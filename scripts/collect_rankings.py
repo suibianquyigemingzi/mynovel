@@ -86,7 +86,6 @@ def make_browser() -> Browser:
             "--disable-blink-features=AutomationControlled",
             "--disable-dev-shm-usage",
             "--disable-gpu",
-            "--single-process",
         ],
     )
 
@@ -157,8 +156,6 @@ def collect_one(browser: Browser, ranking_key: str, meta: dict[str, str], top_n:
             user_agent=ua,
             locale="zh-CN",
             timezone_id="Asia/Shanghai",
-            ignoreHTTPSErrors=True,
-            extra_http_headers={"Accept-Language": "zh-CN,zh;q=0.9"},
         )
         page = make_page(browser, ctx)
         try:
