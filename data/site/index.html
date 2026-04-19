@@ -15,7 +15,7 @@
     canvas#sword { position:fixed; inset:0; z-index:2; pointer-events:none; }
     .shell { position:relative; z-index:3; min-height:100vh; padding:28px 18px 40px; }
 
-    .layout { display:grid; grid-template-columns:210px 1fr 1fr; gap:18px; align-items:start; width:100%; max-width:min(1440px,60vw); margin:0 auto; }
+    .layout { display:grid; grid-template-columns:170px 1fr 1fr 0.85fr; gap:16px; align-items:start; width:100%; max-width:min(1440px,80vw); margin:0 auto; }
     .side { display:flex; flex-direction:column; gap:16px; justify-content:flex-start; }
     .glass { background:var(--panel); backdrop-filter:blur(28px) saturate(1.05); border-radius:28px; border:1px solid rgba(255,255,255,.05); padding:16px; }
     .panel-head { display:flex; gap:12px; align-items:flex-start; margin-bottom:10px; flex-shrink:0; }
@@ -57,6 +57,18 @@
     .top-bar-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,rgba(143,184,242,.4),rgba(190,220,255,.85)); }
     .top-score { font-size:11px; color:var(--gold); flex-shrink:0; min-width:34px; text-align:right; }
     @media(max-width:1100px) { .layout{ grid-template-columns:1fr; } }
+
+    .reviews-panel {}
+    .reviews-list { display:flex; flex-direction:column; gap:10px; margin-top:4px; overflow-y:auto; max-height:520px; }
+    .review-item { padding-bottom:10px; border-bottom:1px solid rgba(180,210,255,.07); }
+    .review-item:last-child { border-bottom:none; }
+    .review-book { font-size:11px; color:var(--gold); font-weight:600; margin-bottom:3px; }
+    .review-snippet { font-size:12px; color:var(--text); line-height:1.5; }
+    .review-src { font-size:10px; color:var(--muted); margin-top:2px; }
+    .review-loading { font-size:12px; color:var(--muted); text-align:center; padding:16px 0; }
+    .right-col { min-width:0; }
+    .top-title { cursor:pointer; transition:color 0.2s; }
+    .top-title:hover { color:var(--gold); }
   </style>
 </head>
 <body>
@@ -70,9 +82,9 @@
       <div class='side left-col'>
         <div class='glass top-analysis-panel'>
           <div class='panel-head'><div class='sword-line'></div><div><h3>🔥 综合热度</h3><p>月票·畅销·推荐三榜加权</p></div></div>
-          <div class='top-list'><div class='top-row'><div class='top-medal'>🥇</div><div class='top-info'><div class='top-title'>玄鉴仙族</div><div class='top-meta'>季越人 · 仙侠</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:100%'></div></div></div><div class='top-score'>59分</div></div>
-<div class='top-row'><div class='top-medal'>🥈</div><div class='top-info'><div class='top-title'>夜无疆</div><div class='top-meta'>辰东 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:96%'></div></div></div><div class='top-score'>57分</div></div>
-<div class='top-row'><div class='top-medal'>🥉</div><div class='top-info'><div class='top-title'>捞尸人</div><div class='top-meta'>纯洁滴小龙 · 都市</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:93%'></div></div></div><div class='top-score'>55分</div></div>
+          <div class='top-list'><div class='top-row'><div class='top-medal'>🥇</div><div class='top-info'><div class='top-title' onclick="showBookModal('玄鉴仙族')">玄鉴仙族</div><div class='top-meta'>季越人 · 仙侠</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:100%'></div></div></div><div class='top-score'>59分</div></div>
+<div class='top-row'><div class='top-medal'>🥈</div><div class='top-info'><div class='top-title' onclick="showBookModal('夜无疆')">夜无疆</div><div class='top-meta'>辰东 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:96%'></div></div></div><div class='top-score'>57分</div></div>
+<div class='top-row'><div class='top-medal'>🥉</div><div class='top-info'><div class='top-title' onclick="showBookModal('捞尸人')">捞尸人</div><div class='top-meta'>纯洁滴小龙 · 都市</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:93%'></div></div></div><div class='top-score'>55分</div></div>
 <div class='top-row'><div class='top-medal'>4</div><div class='top-info'><div class='top-title'>青山</div><div class='top-meta'>会说话的肘子 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:77%'></div></div></div><div class='top-score'>46分</div></div>
 <div class='top-row'><div class='top-medal'>5</div><div class='top-info'><div class='top-title'>没钱修什么仙？</div><div class='top-meta'>熊狼狗 · 仙侠</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:74%'></div></div></div><div class='top-score'>44分</div></div>
 <div class='top-row'><div class='top-medal'>6</div><div class='top-info'><div class='top-title'>苟在武道世界成圣</div><div class='top-meta'>在水中的纸老虎 · 玄幻</div><div class='top-bar-bg'><div class='top-bar-fill' style='width:57%'></div></div></div><div class='top-score'>34分</div></div>
@@ -201,6 +213,17 @@
         </div>
       </div>
 
+
+      <!-- COL 4: 网评摘录 -->
+      <div class='side right-col'>
+        <div class='glass reviews-panel'>
+          <div class='panel-head'><div class='sword-line'></div><div><h3>💬 网评摘录</h3><p>搜狗搜索 · 实时采编</p></div></div>
+          <div class='reviews-list' id='reviews-list'>
+            <div class='review-loading'>正在加载...</div>
+          </div>
+        </div>
+      </div>
+
     </section>
   </main>
   <script>
@@ -255,5 +278,42 @@
     loop();
   })();
   </script>
+
+<div id="book-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;">
+  <div class="modal-content" style="background:#1a1530;border:1px solid rgba(180,210,255,.15);border-radius:28px;padding:32px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;position:relative;box-shadow:0 20px 80px rgba(0,0,0,.6);">
+    <button onclick="closeBookModal()" class="modal-close" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#8a9ab0;font-size:20px;cursor:pointer;padding:4px;">✕</button>
+    <h2 id="m-title" style="color:var(--text);font-size:22px;margin:0 0 8px 0;"></h2>
+    <div id="m-meta" style="color:var(--muted);font-size:13px;margin-bottom:12px;"></div>
+    <div id="m-score" style="color:var(--gold);font-size:14px;margin-bottom:16px;font-weight:600;"></div>
+    <div id="m-summary" style="color:#c8d8f0;font-size:13px;line-height:1.6;"></div>
+    <a id="m-link" href="#" target="_blank" style="display:inline-block;margin-top:16px;padding:10px 20px;background:linear-gradient(135deg,#4a3f8f,#2d2a6e);color:#fff;border-radius:14px;text-decoration:none;font-size:13px;">起点详情 →</a>
+  </div>
+</div>
+<script>
+var bookData={"玄鉴仙族":{"bid":"1035420986","score":"59分","summary":"陆江仙熬夜猝死，残魂附于青灰色铜镜，飘落修仙世界。小家族拾镜，传仙道授仙法，开启波澜壮阔的新时代。（家族修仙，不圣母，种田，无系统，群像文）"},"夜无疆":{"bid":"1040765595","score":"57分","summary":"辰东东方玄幻新作。那一天太阳落下再也没有升起……"},"捞尸人":{"bid":"1041637443","score":"55分","summary":"人知鬼恐怖，鬼晓人心毒。传统灵异小说，讲述捞尸人的故事。"}};
+function showBookModal(title){var b=bookData[title];if(!b)return;document.getElementById('m-title').textContent=title;document.getElementById('m-meta').textContent='综合热度: '+b.score;document.getElementById('m-score').textContent=b.score;document.getElementById('m-summary').textContent=b.summary||'暂无简介';document.getElementById('m-link').href='https://www.qidian.com/book/'+b.bid+'/';document.getElementById('book-modal').style.display='flex';}
+function closeBookModal(){document.getElementById('book-modal').style.display='none';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBookModal();});
+document.getElementById('book-modal').addEventListener('click',function(e){if(e.target===this)closeBookModal();});
+</script>
+
+<script>
+fetch('reviews.json').then(r=>r.json()).then(data=>{
+  var el=document.getElementById('reviews-list');
+  if(!el)return;
+  var html='';
+  Object.keys(data).slice(0,15).forEach(function(title){
+    var item=data[title];
+    var snippets=item.snippets||[];
+    if(snippets.length>0){
+      html+='<div class="review-item">';
+      html+='<div class="review-book">📖 '+title+'</div>';
+      html+='<div class="review-snippet">'+snippets[0]+'</div>';
+      html+='</div>';
+    }
+  });
+  el.innerHTML=html||'<div style="font-size:12px;color:var(--muted);padding:16px 0;">暂无数据</div>';
+}).catch(function(){console.log('reviews load failed');});
+</script>
 </body>
 </html>
