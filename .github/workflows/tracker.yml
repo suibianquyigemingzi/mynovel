@@ -4,11 +4,11 @@ on:
   push:
     branches: [main]
   schedule:
-    # 6 AM and 6 PM MDT (Edmonton = UTC-6)
-    # 6 AM MDT = 12:00 UTC
-    # 6 PM MDT = 00:00 UTC next day
-    - cron: "0 12 * * *"
-    - cron: "0 0 * * *"
+    # 8 AM and 8 PM MDT (Edmonton = UTC-6)
+    # 8 AM MDT = 14:00 UTC
+    # 8 PM MDT = 02:00 UTC next day
+    - cron: "0 14 * * *"
+    - cron: "0 2 * * *"
 
 permissions:
   contents: write
