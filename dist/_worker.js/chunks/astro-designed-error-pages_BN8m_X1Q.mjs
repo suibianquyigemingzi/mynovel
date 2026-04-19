@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { ap as REDIRECT_STATUS_CODES, A as AstroError, aq as ActionsReturnedInvalidDataError, w as escape, I as DEFAULT_404_COMPONENT } from './astro/server_Bg8_XdYk.mjs';
+import { aq as REDIRECT_STATUS_CODES, A as AstroError, ar as ActionsReturnedInvalidDataError, w as escape, J as DEFAULT_404_COMPONENT } from './astro/server_CJHwISMA.mjs';
 import { U as UNDEFINED, N as NAN, P as POSITIVE_INFINITY, a as NEGATIVE_INFINITY, b as NEGATIVE_ZERO, e as encode64, H as HOLE, p as parse } from './parse_DGrrK2jG.mjs';
 
 /* es-module-lexer 1.7.0 */
@@ -478,7 +478,7 @@ function getActionQueryString(name) {
 }
 function serializeActionResult(res) {
   if (res.error) {
-    if (Object.assign(__vite_import_meta_env__, { CI: true, _: process.env._ })?.DEV) {
+    if (Object.assign(__vite_import_meta_env__, { _: process.env._ })?.DEV) {
       actionResultErrorStack.set(res.error.stack);
     }
     let body2;
@@ -545,7 +545,7 @@ function deserializeActionResult(res) {
         })
       };
     }
-    if (Object.assign(__vite_import_meta_env__, { CI: true, _: process.env._ })?.PROD) {
+    if (Object.assign(__vite_import_meta_env__, { _: process.env._ })?.PROD) {
       return { error: ActionError.fromJson(json), data: void 0 };
     } else {
       const error = ActionError.fromJson(json);

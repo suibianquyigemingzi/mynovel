@@ -1,21 +1,23 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { renderers } from './renderers.mjs';
-import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_M76lcRjV.mjs';
-import { manifest } from './manifest_CBwvvaFd.mjs';
+import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_D4cWsS5E.mjs';
+import { manifest } from './manifest_DFNDh7Di.mjs';
 
 const serverIslandMap = new Map();;
 
 const _page0 = () => import('./pages/about.astro.mjs');
 const _page1 = () => import('./pages/blog.astro.mjs');
 const _page2 = () => import('./pages/blog/_---slug_.astro.mjs');
-const _page3 = () => import('./pages/rss.xml.astro.mjs');
-const _page4 = () => import('./pages/index.astro.mjs');
+const _page3 = () => import('./pages/board.astro.mjs');
+const _page4 = () => import('./pages/rss.xml.astro.mjs');
+const _page5 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["src/pages/about.astro", _page0],
     ["src/pages/blog/index.astro", _page1],
     ["src/pages/blog/[...slug].astro", _page2],
-    ["src/pages/rss.xml.js", _page3],
-    ["src/pages/index.astro", _page4]
+    ["src/pages/board.html", _page3],
+    ["src/pages/rss.xml.js", _page4],
+    ["src/pages/index.astro", _page5]
 ]);
 
 const _manifest = Object.assign(manifest, {

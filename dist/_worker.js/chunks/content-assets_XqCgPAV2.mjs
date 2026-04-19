@@ -1,1 +1,4 @@
-// Contents removed by Astro as it's used for prerendering only
+globalThis.process ??= {}; globalThis.process.env ??= {};
+const contentAssets = new Map();
+
+export { contentAssets as default };
