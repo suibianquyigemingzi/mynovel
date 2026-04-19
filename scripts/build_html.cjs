@@ -52,7 +52,7 @@ const analysis_rows = top10.map((b, i) => topRow(b, i)).join('\n');
 
 const reviewItems = Object.entries(reviews).slice(0, 15).map(([title, item]) => {
   const snippet = (item.snippets && item.snippets[0]) ? item.snippets[0] : '';
-  return `<div class='review-item' onclick="showBookModal('${title.replace(/'/g, "\\'")}')" style='cursor:pointer'><div class='review-book'>📖 ${title}</div><div class='review-snippet'>${snippet}</div></div>`;
+  return `<div class='review-item' onclick='showBookModal("${title.replace(/'/g, "\\'")}")' style='cursor:pointer'><div class='review-book'>📖 ${title}</div><div class='review-snippet'>${snippet}</div></div>`;
 }).join('\n');
 
 const bookDataJS = JSON.stringify({
