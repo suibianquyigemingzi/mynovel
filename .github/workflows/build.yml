@@ -30,9 +30,6 @@ jobs:
       - name: Generate HTML
         run: node scripts/build_html.cjs
 
-      - name: Build Astro site
-        run: npx astro build || true
-
       - name: Configure git and commit dist
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
