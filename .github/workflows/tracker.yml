@@ -28,7 +28,7 @@ jobs:
 
       - run: npm ci
 
-      - run: node scripts/build_html.js
+      - run: node scripts/build_html.cjs
 
       - run: |
           cp data/site/index.html dist/index.html
