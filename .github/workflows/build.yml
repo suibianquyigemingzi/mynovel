@@ -38,6 +38,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/suibianquyigemingzi/mynovel.git"
           git add -f dist/
-          git diff --staged --quiet && echo "no changes" || git commit -m "build: $(date -u '+%Y-%m-%d %H:%M UTC')"
-          git status # debug
+          # Always commit (force timestamp update so Pages detects change)
+          git commit -m "build: $(date -u '+%Y-%m-%d %H:%M UTC')" --allow-empty || true
           git push origin main
