@@ -127,7 +127,7 @@ html = (
     "          <div class='top-list'>" + analysis_rows + "</div>\n"
     "        </div>\n"
     "        <div class='glass theme-panel'>\n"
-    "          <div class='panel-head'><div class='sword-line'></div><div><h3>本周题材</h3><p>裂天遗迹 · 断崖幽冥，位面压迫，黑暗旷野</p></div></div>\n"
+    "          <div class='panel-head'><div class='sword-line'></div><div><h3>本周题材</h3><p>裂天遗迹 · 断崖幽冥，位面战场，黑暗旷野</p></div></div>\n"
     "          <div class='theme-pill'><i></i><span>玄幻</span></div>\n"
     "          <div class='tags'><span>玄幻 261.0</span><span>仙侠 193.4</span><span>都市 171.6</span><span>科幻 60.2</span><span>轻小说 39.0</span></div>\n"
     "          <ul class='analysis-list'>\n"
