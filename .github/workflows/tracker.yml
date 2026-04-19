@@ -30,8 +30,4 @@ jobs:
 
       - run: node scripts/build_html.cjs
 
-      - run: |
-          cp data/site/index.html dist/index.html
-          echo "Deployed tracker HTML ($(wc -c < data/site/index.html) bytes)"
-
-      - run: echo "dist already built and committed by build.yml"
+      - run: echo "dist built via build_html.cjs, committed by build.yml"
