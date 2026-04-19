@@ -34,7 +34,4 @@ jobs:
           cp data/site/index.html dist/index.html
           echo "Deployed tracker HTML ($(wc -c < data/site/index.html) bytes)"
 
-      - run: |
-          git config user.name "mynovel-bot"
-          git config user.email "bot@mynovel"
-          git add -f dist/ && git commit --allow-empty -m "deploy: tracker $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
+      - run: echo "dist already built and committed by build.yml"
