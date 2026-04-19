@@ -37,4 +37,4 @@ jobs:
       - run: |
           git config user.name "mynovel-bot"
           git config user.email "bot@mynovel"
-          git add -f dist/ && git commit -m "deploy: tracker $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
+          git add -f dist/ && git commit --allow-empty -m "deploy: tracker $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
