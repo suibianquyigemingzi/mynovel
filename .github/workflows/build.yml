@@ -27,17 +27,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate HTML
-        run: node scripts/build_html.cjs
+      - name: Build
+        run: node scripts/build_html.cjs && npm run build
 
-      - name: Configure git and commit dist
+      - name: Deploy
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/suibianquyigemingzi/mynovel.git"
-          git add -f dist/
-          # Always commit (force timestamp update so Pages detects change)
-          git commit -m "build: $(date -u '+%Y-%m-%d %H:%M UTC')" --allow-empty || true
-          git push origin main
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler pages deploy dist --project-name=mynovel --token=$CLOUDFLARE_API_TOKEN
