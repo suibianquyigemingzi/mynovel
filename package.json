@@ -28,7 +28,7 @@
   "private": true,
   "scripts": {
     "astro": "astro",
-    "build": "node scripts/build_html.cjs && astro build && cp dist/index.html dist/index.html",
+    "build": "node scripts/build_html.cjs",
     "cf-typegen": "wrangler types",
     "check": "astro build && tsc && wrangler deploy --dry-run",
     "deploy": "wrangler pages deploy dist --project-name=mynovel",
