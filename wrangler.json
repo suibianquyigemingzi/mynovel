@@ -1,7 +1,10 @@
 {
 	"name": "mynovel",
 	"compatibility_date": "2025-10-08",
-	"pages_build_output_dir": "./dist",
+	"main": "index.js",
+	"assets": {
+		"directory": "public"
+	},
 	"observability": {
 		"enabled": true
 	}
