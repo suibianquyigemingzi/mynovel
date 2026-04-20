@@ -7,5 +7,9 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"workers_domains": [
+		{ "zone": "mynovel.me" },
+		{ "zone": "www.mynovel.me" }
+	]
 }
