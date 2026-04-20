@@ -26,15 +26,28 @@ for (const src of [yuepiao, hotsales, recom]) {
 
 const top10 = Object.values(scoreMap).sort((a, b) => b.score - a.score).slice(0, 10);
 
+const CHINESE_NUMS = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖','拾'];
+
+function toChineseNum(n) {
+  if (n <= 10) return CHINESE_NUMS[n];
+  if (n < 20) return '壹拾' + CHINESE_NUMS[n - 10];
+  if (n < 100) {
+    const tens = Math.floor(n / 10);
+    const ones = n % 10;
+    return (tens === 1 ? '' : CHINESE_NUMS[tens]) + '拾' + (ones === 0 ? '' : CHINESE_NUMS[ones]);
+  }
+  return String(n);
+}
+
 function makeRows(entries) {
   return entries.map(e =>
-    "<div class='row'><div class='rank glow-num'>" + String(e.rank).padStart(2,'0') + "</div><div class='book'><div class='title'>" + e.title + "</div><div class='meta'>" + e.author + " · " + (e.category||'') + " · " + (e.status||'') + "</div></div></div>"
+    "<div class='row'><div class='rank glow-num'>" + toChineseNum(e.rank) + "</div><div class='book'><div class='title'>" + e.title + "</div><div class='meta'>" + e.author + " · " + (e.category||'') + " · " + (e.status||'') + "</div></div></div>"
   ).join('\n');
 }
 
 function topRow(book, i) {
   const medals = ['🥇','🥈','🥉'];
-  const medal = i < 3 ? medals[i] : String(i + 1);
+  const medal = i < 3 ? medals[i] : toChineseNum(i + 1);
   const bar = Math.round((book.score / top10[0].score) * 100);
   const rank = top10.indexOf(book) + 1;
   return "<div class='top-row' onclick=\"showBookModal('" + book.title.replace(/'/g,"\\'") + "')\">" +
