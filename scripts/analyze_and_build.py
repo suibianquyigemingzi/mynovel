@@ -194,10 +194,31 @@ def build_html(data_dir: Path) -> Path:
     *,*::before,*::after {{ box-sizing:border-box; }}
     html,body {{ margin:0; min-height:100vh; }}
     body {{ color:var(--text); font-family:"PingFang SC","Noto Serif SC","STSong",serif; background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%); overflow-x:hidden; }}
-    .scene-bg {{ position:fixed; inset:0; z-index:0; opacity:.12; background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%); }}
-    .scene-vignette {{ position:fixed; inset:0; z-index:1; background:radial-gradient(ellipse 80% 60% at 50% 38%,rgba(6,14,26,.18) 0%,rgba(6,14,26,.72) 100%); }}
-    canvas#qi {{ position:fixed; inset:0; z-index:2; pointer-events:none; }}
-    .shell {{ position:relative; z-index:3; min-height:100vh; padding:28px 18px 40px; }}
+    /* ── Layer 1: Deep nebula base ── */
+    .scene-bg {{ position:fixed; inset:0; z-index:0; overflow:hidden; }}
+    .scene-bg::before {{ content:''; position:absolute; inset:-20%; background:
+      radial-gradient(ellipse 90% 70% at 20% 15%, rgba(60,30,100,.55) 0%, transparent 65%),
+      radial-gradient(ellipse 80% 60% at 78% 82%, rgba(15,45,90,.60) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 55% 35%, rgba(35,15,70,.35) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 88% 12%, rgba(80,40,120,.30) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 12% 72%, rgba(10,30,80,.45) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 40% 90%, rgba(50,20,90,.25) 0%, transparent 55%),
+      linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%); }}
+    /* ── Layer 2: Flowing mist / ink-wash noise (animated) ── */
+    .scene-mist {{ position:fixed; inset:0; z-index:1;
+      opacity:.07; animation:mist-drift 28s ease-in-out infinite alternate; pointer-events:none;
+      background:transparent; }}
+    @keyframes mist-drift {{
+      0%   {{ transform:translate(-4%,-3%) rotate(.5deg) scale(1.05); }}
+      33%  {{ transform:translate(3%,-5%) rotate(-.3deg) scale(1.08); }}
+      66%  {{ transform:translate(-2%,4%) rotate(.8deg) scale(1.06); }}
+      100% {{ transform:translate(4%,2%) rotate(-.5deg) scale(1.09); }}
+    }}
+    /* ── Layer 3: Vignette ── */
+    .scene-vignette {{ position:fixed; inset:0; z-index:2; pointer-events:none;
+      background:radial-gradient(ellipse 80% 65% at 50% 38%,rgba(6,14,26,.08) 0%,rgba(6,14,26,.75) 100%); }}
+    canvas#qi {{ position:fixed; inset:0; z-index:3; pointer-events:none; }}
+    .shell {{ position:relative; z-index:4; min-height:100vh; padding:28px 18px 40px; }}
     .layout {{ display:grid; grid-template-columns:300px minmax(0,1fr) 300px; gap:40px; align-items:start; max-width:1440px; margin:0 auto; }}
     .side {{ display:flex; flex-direction:column; gap:16px; }}
     .center-stage {{ min-height:calc(100vh - 56px); display:flex; flex-direction:column; justify-content:space-between; padding:18px 0 10px; }}
@@ -240,6 +261,13 @@ def build_html(data_dir: Path) -> Path:
 </head>
 <body>
   <div class='scene-bg'></div>
+  <!-- SVG turbulence: creates organic ink-wash / nebula mist texture -->
+  <svg class='scene-mist' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice' xmlns='http://www.w3.org/2000/svg'>
+    <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.008' numOctaves='5' seed='7' stitchTiles='stitch' result='noise'/><feColorMatrix type='saturate' values='0' in='noise'/><feComponentTransfer in='noise'><feFuncR type='linear' slope='1.2' intercept='-0.05'/><feFuncG type='linear' slope='1.1' intercept='-0.02'/><feFuncB type='linear' slope='1.4' intercept='0.0'/></feComponentTransfer><feComposite operator='in' in2='SourceGraphic'/></filter>
+    <filter id='n2'><feTurbulence type='fractalNoise' baseFrequency='0.022 0.016' numOctaves='4' seed='19' stitchTiles='stitch' result='noise'/><feColorMatrix type='saturate' values='0' in='noise'/><feComponentTransfer in='noise'><feFuncR type='linear' slope='0.9' intercept='0'/><feFuncG type='linear' slope='0.85' intercept='0'/><feFuncB type='linear' slope='1.2' intercept='0'/></feComponentTransfer><feComposite operator='in' in2='SourceGraphic'/></filter>
+    <rect width='800' height='600' filter='url(#n)' opacity='0.85'/>
+    <rect width='800' height='600' filter='url(#n2)' opacity='0.6' transform='translate(60,40)'/>
+  </svg>
   <div class='scene-vignette'></div>
   <canvas id='qi'></canvas>
   <main class='shell'>
