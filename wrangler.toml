@@ -1,0 +1,7 @@
+name = "mynovel"
+compatibility_date = "2024-01-01"
+# Explicitly set Pages output dir - tells wrangler this is a Pages project
+pages_build_output_dir = "public"
+
+[site]
+bucket = "public"
